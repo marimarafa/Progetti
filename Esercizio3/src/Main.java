@@ -1,18 +1,23 @@
 import main.entity.Contatto;
+import main.entity.Notifica;
 import main.service.ContattoServiceImpl;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        String file = "Contatti.csv";
+    public static void main(String[] args) throws IOException, ParseException {
+        String file = "Rubrica.csv";
         String email,telefono, nome,cognome;
+        LocalDate dataNascita;
         String regexTelefono = "^([+-]?(?=\\.\\d|\\d)(?:\\d+)?(?:\\.?\\d*))(?:[Ee]([+-]?\\d+))?\\s[0-9]+$";
         String regexEmail ="^[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+(?:\\.[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?\\.)+[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?$";
         String regexNomeCognome = "^[A-Z][a-z]+";
+        String regexData = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
 
 
         Scanner scanner = new Scanner(System.in);
@@ -94,14 +99,19 @@ public class Main {
                         }
                     }
 
-                    System.out.print("Inserisci flag (int): ");
-                    while (!scanner.hasNextInt()) {
-                        System.out.println("Errore: devi inserire un numero!");
-                        scanner.nextLine();
-                    }
-                    int flag = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Inserisci una notifica: ");
 
-                    Contatto contatto = new Contatto(id, nome, cognome, indirizzo ,telefono, email, flag);
+                    while (true) {
+                        System.out.print("Inserisci data nascita: ");
+                        dataNascita = LocalDate.parse(scanner.nextLine());
+                        if(!service.ControlloRegex(regexData,String.valueOf(dataNascita))){
+                            System.out.println("Data non valida riprovare");
+                        } else{
+                            break;
+                        }
+                    }
+
+                    Contatto contatto = new Contatto(id, nome, cognome, indirizzo ,telefono, email, notifica,dataNascita);
                     if (service.addContatto(contatto, file)) {
                         System.out.println("Contatto aggiunto con successo.");
                     } else {

@@ -1,24 +1,29 @@
 package main.entity;
 
-import java.util.UUID;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 public class Contatto implements  Comparable<Contatto>{
     private int id ;
     private String nome , cognome , telefono ,indirizzo , email;
-    private int flag;
+    private Notifica notifica;
+    private LocalDate dataNascita;
 
     public Contatto() {
     }
 
-    public Contatto(int id ,String nome, String cognome, String indirizzo, String telefono, String email, int flag) {
+    public Contatto(int id ,String nome, String cognome, String indirizzo, String telefono, String email, Notifica notifica,LocalDate dataNascita) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.indirizzo = indirizzo;
         this.telefono = telefono;
         this.email = email;
-        this.flag = flag;
+        this.notifica = notifica;
+        this.dataNascita = dataNascita;
     }
+
 
     public int getId() {
         return id;
@@ -68,13 +73,17 @@ public class Contatto implements  Comparable<Contatto>{
         this.telefono = telefono;
     }
 
-    public int getFlag() {
-        return flag;
+    public Notifica getFlag() {
+        return notifica;
     }
 
-    public void setFlag(int flag) {
-        this.flag = flag;
+    public void setFlag(Notifica notifica) {
+        this.notifica = notifica;
     }
+
+    public LocalDate getDataNascita() {return dataNascita;}
+
+    public void setDataNascita(LocalDate dataNascita) {this.dataNascita = dataNascita;}
 
     @Override
     public String toString() {

@@ -3,7 +3,6 @@ package main.service;
 import main.entity.Contatto;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 public interface ContattoService {
     public List<Contatto> caricaDaCSV(String file);

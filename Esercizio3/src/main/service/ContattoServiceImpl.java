@@ -4,10 +4,10 @@ package main.service;
 import main.entity.Contatto;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,8 +27,9 @@ public class ContattoServiceImpl implements ContattoService {
                 String telefono = dati[4];
                 String email = dati[5];
                 int flag = Integer.parseInt(dati[6]);
+                LocalDate dataNascita = LocalDate.parse(dati[7]);
 
-                contatti.add(new Contatto(id,nome,cognome,indirizzo,telefono,email,flag));
+                contatti.add(new Contatto(id,nome,cognome,indirizzo,telefono,email,flag ,dataNascita));
                 Collections.sort(contatti);
             }
         } catch (IOException e) {
@@ -53,7 +54,8 @@ public class ContattoServiceImpl implements ContattoService {
                     contatto.getIndirizzo() + "," +
                     contatto.getTelefono() + "," +
                     contatto.getEmail() + "," +
-                    contatto.getFlag());
+                    contatto.getFlag() + "," +
+                    contatto.getDataNascita());
             return true;
         } catch (IOException e) {
             System.err.println("Errore durante l'aggiunta del contatto: " + e.getMessage());
