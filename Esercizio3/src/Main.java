@@ -98,8 +98,14 @@ public class Main {
                             break;
                         }
                     }
+                 // campi per notifica ....
+                    System.out.print("Inserisci il tipo di notifica: ");
+                    String tipoNotifica = scanner.nextLine();
+                    System.out.println("Inserisci la data della notifica: ");
+                    LocalDate dataNotifica = LocalDate.parse(scanner.nextLine());
+                    System.out.println("Inserisci descrizione: ");
+                    String descrizione = scanner.nextLine();
 
-                    System.out.print("Inserisci una notifica: ");
 
                     while (true) {
                         System.out.print("Inserisci data nascita: ");
