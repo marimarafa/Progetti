@@ -5,7 +5,6 @@ import main.entity.Contatto;
 import java.util.List;
 
 public interface ContattoService {
-    public List<Contatto> caricaDaCSV(String file);
     public boolean addContatto(Contatto contatto,String file);
     public List<Contatto> cercaContattoNome(String nome,String file);
     public List<Contatto> cercaContattoPattern(String regex,String file);

@@ -1,3 +1,4 @@
+import main.dao.ConnessioneDB;
 import main.entity.Contatto;
 import main.entity.Notifica;
 import main.service.ContattoServiceImpl;
@@ -18,6 +19,7 @@ public class Main {
         String regexEmail ="^[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+(?:\\.[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?\\.)+[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?$";
         String regexNomeCognome = "^[A-Z][a-z]+";
         String regexData = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
+        boolean inviata = false;
 
 
         Scanner scanner = new Scanner(System.in);
@@ -98,15 +100,6 @@ public class Main {
                             break;
                         }
                     }
-                 // campi per notifica ....
-                    System.out.print("Inserisci il tipo di notifica: ");
-                    String tipoNotifica = scanner.nextLine();
-                    System.out.println("Inserisci la data della notifica: ");
-                    LocalDate dataNotifica = LocalDate.parse(scanner.nextLine());
-                    System.out.println("Inserisci descrizione: ");
-                    String descrizione = scanner.nextLine();
-
-
                     while (true) {
                         System.out.print("Inserisci data nascita: ");
                         dataNascita = LocalDate.parse(scanner.nextLine());
@@ -117,7 +110,25 @@ public class Main {
                         }
                     }
 
-                    Contatto contatto = new Contatto(id, nome, cognome, indirizzo ,telefono, email, notifica,dataNascita);
+                    // campi per notifica ....
+                    System.out.print("Inserisci ID: ");
+                    int idNotifica = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Inserisci il tipo di notifica: ");
+                    String tipoNotifica = scanner.nextLine();
+                    System.out.println("Inserisci la data della notifica: ");
+                    LocalDate dataNotifica = LocalDate.parse(scanner.nextLine());
+                    System.out.println("Inserisci descrizione: ");
+                    String descrizione = scanner.nextLine();
+                    System.out.println("Stato notifica : [inviata - non inviata]: ");
+                    String stato =scanner.nextLine();
+                    inviata = stato.equals("inviata");
+
+                    Notifica notifica = new Notifica(idNotifica,tipoNotifica,dataNotifica,descrizione,inviata);
+
+
+
+
+                    Contatto contatto = new Contatto(id, nome, cognome, indirizzo ,telefono, email,dataNascita,notifica);
                     if (service.addContatto(contatto, file)) {
                         System.out.println("Contatto aggiunto con successo.");
                     } else {
@@ -140,7 +151,7 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println(service.caricaDaCSV(file));
+                    System.out.println(ConnessioneDB.CaricaDaDB());
                     break;
 
                 case 4:

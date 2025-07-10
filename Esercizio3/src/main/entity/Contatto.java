@@ -13,15 +13,16 @@ public class Contatto implements  Comparable<Contatto>{
     public Contatto() {
     }
 
-    public Contatto(int id ,String nome, String cognome, String indirizzo, String telefono, String email, Notifica notifica,LocalDate dataNascita) {
+    public Contatto(int id ,String nome, String cognome, String indirizzo, String telefono, String email,LocalDate dataNascita, Notifica notifica) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.indirizzo = indirizzo;
         this.telefono = telefono;
         this.email = email;
-        this.notifica = notifica;
         this.dataNascita = dataNascita;
+        this.notifica = notifica;
+
     }
 
 
@@ -73,17 +74,17 @@ public class Contatto implements  Comparable<Contatto>{
         this.telefono = telefono;
     }
 
-    public Notifica getFlag() {
-        return notifica;
-    }
-
-    public void setFlag(Notifica notifica) {
-        this.notifica = notifica;
-    }
-
     public LocalDate getDataNascita() {return dataNascita;}
 
     public void setDataNascita(LocalDate dataNascita) {this.dataNascita = dataNascita;}
+
+    public Notifica getNotifica() {
+        return notifica;
+    }
+
+    public void setNotifica(Notifica notifica) {
+        this.notifica = notifica;
+    }
 
     @Override
     public String toString() {
@@ -94,8 +95,15 @@ public class Contatto implements  Comparable<Contatto>{
                 ", indirizzo='" + indirizzo + '\'' +
                 ", email='" + email + '\'' +
                 ", telefono=" + telefono +
-                ", flag=" + flag +
+                ", dataNascita=" + dataNascita +
+                ", notifica=" + notifica +
+
                 '}';
+    }
+
+    public String toCSV() {
+        return id + "," + nome + "," + cognome + "," + indirizzo + "," + telefono + "," + email + "," +
+                dataNascita + "," + notifica.toCSV();
     }
 
 

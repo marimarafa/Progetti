@@ -4,16 +4,26 @@ package main.entity;
 import java.time.LocalDate;
 
 public class Notifica {
+    private int id;
     private String tipo;
-    private LocalDate dataNotifica;
+    private LocalDate data;
     private String descrizione;
     private boolean inviata;
 
-    public Notifica(String tipo, LocalDate dataNotifica, String descrizione, boolean inviata) {
+    public Notifica(int id,String tipo, LocalDate data, String descrizione, boolean inviata) {
+        this.id = id;
         this.tipo = tipo;
-        this.dataNotifica = dataNotifica;
+        this.data = data;
         this.descrizione = descrizione;
         this.inviata = inviata;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTipo() {
@@ -24,12 +34,12 @@ public class Notifica {
         this.tipo = tipo;
     }
 
-    public LocalDate getDataNotifica() {
-        return dataNotifica;
+    public LocalDate getData() {
+        return data;
     }
 
-    public void setDataNotifica(LocalDate dataNotifica) {
-        this.dataNotifica = dataNotifica;
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
     public String getDescrizione() {
@@ -48,11 +58,16 @@ public class Notifica {
         this.inviata = inviata;
     }
 
+    public String toCSV() {
+        return tipo + "-" + data + "-" + descrizione + "-" + inviata;
+    }
+
+
     @Override
     public String toString() {
         return "Notifica{" +
                 "tipo='" + tipo + '\'' +
-                ", dataNotifica=" + dataNotifica +
+                ", data=" + data +
                 ", descrizione='" + descrizione + '\'' +
                 ", inviata=" + inviata +
                 '}';
