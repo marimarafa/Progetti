@@ -1,21 +1,40 @@
-package main.entity;
+package main.java.entity;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Notifica {
     private int id;
     private String tipo;
-    private LocalDate data;
+    private LocalDateTime data;
     private String descrizione;
     private boolean inviata;
+    private int idContatto;
 
-    public Notifica(int id,String tipo, LocalDate data, String descrizione, boolean inviata) {
+    public Notifica(int id,String tipo, LocalDateTime data, String descrizione, boolean inviata,int idContatto) {
         this.id = id;
         this.tipo = tipo;
         this.data = data;
         this.descrizione = descrizione;
         this.inviata = inviata;
+        this.idContatto = idContatto;
+    }
+
+    public Notifica(String tipo, LocalDateTime data, String descrizione, boolean inviata, int idContatto) {
+        this.tipo = tipo;
+        this.data = data;
+        this.descrizione = descrizione;
+        this.inviata = inviata;
+        this.idContatto = idContatto;
+    }
+
+    public int getIdContatto() {
+        return idContatto;
+    }
+
+    public void setIdContatto(int idContatto) {
+        this.idContatto = idContatto;
     }
 
     public int getId() {
@@ -34,11 +53,11 @@ public class Notifica {
         this.tipo = tipo;
     }
 
-    public LocalDate getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 
@@ -58,9 +77,9 @@ public class Notifica {
         this.inviata = inviata;
     }
 
-    public String toCSV() {
-        return tipo + "-" + data + "-" + descrizione + "-" + inviata;
-    }
+//    public String toCSV() {
+//        return tipo + "-" + data + "-" + descrizione + "-" + inviata;
+//    }
 
 
     @Override
