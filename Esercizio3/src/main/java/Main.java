@@ -26,7 +26,7 @@ public class Main {
 
         boolean exit = true;
         while (exit) {
-            System.out.println("\n--- MENU ---");
+            System.out.println("\t😁--- MENU ---😁");
             System.out.println("1) Inserisci contatto");
             System.out.println("2) Ricerca contatti (DB)");
             System.out.println("3) Elimina contatto");
@@ -204,7 +204,7 @@ public class Main {
                             System.out.print("Descrizione: ");
                             String descrizione = scanner.nextLine();
 
-                            System.out.print("Stato (inviata/non inviata): ");
+                            System.out.print("Stato [inviata - non inviata]: ");
                             String statoStr = scanner.nextLine();
                             boolean stato = statoStr.equalsIgnoreCase("inviata");
 
@@ -217,8 +217,7 @@ public class Main {
                                 break;
                             }
 
-                            if (DaoContatto.ContattoById(idContatto)) {
-                            } else {
+                            if(!DaoContatto.ContattoById(idContatto)) {
                                 System.out.println("Nessun contatto trovato con questo ID.");
                                 break;
                             }
@@ -245,6 +244,7 @@ public class Main {
                             break;
 
                         case 3:
+                            System.out.println("--- ELIMINAZIONE NOTIFICA ---");
                             System.out.print("Inserisci l'ID della notifica da eliminare: ");
                             int idEliminaNotifica;
                             try {
@@ -261,6 +261,7 @@ public class Main {
                             break;
 
                         case 4:
+                            System.out.println("--- AGGIORNAMENTO NOTIFICA ---");
                             System.out.print("Inserisci l'ID della notifica da modificare: ");
                             int idModificaNotifica;
                             try {
@@ -323,15 +324,18 @@ public class Main {
                             break;
 
                         case 5:
-                            System.out.println("Scegli il tipo di notifica da inviare: [sms- email]: ");
-                            String tipoNotificaDaInviare = scanner.nextLine();
+                            System.out.println("--- INVIA NOTIFICA ---");
+                            System.out.println("Scegli il tipo di notifica da inviare: ");
+                            System.out.println("1)sms");
+                            System.out.println("2)email");
+                            int tipoNotificaDaInviare =Integer.parseInt(scanner.nextLine());
 
                             switch(tipoNotificaDaInviare){
-                                case "sms":
+                                case 1:
                                     ThreadNotifica t1 = new ThreadNotifica("sms");
                                     t1.start();
                                     break;
-                                case "email" :
+                                case 2:
                                     ThreadNotifica t2 = new ThreadNotifica("email");
                                     t2.start();
                             }
@@ -353,7 +357,6 @@ public class Main {
                     System.out.println("Scelta non valida. Riprova.");
             }
         }
-
         scanner.close();
     }
 }
