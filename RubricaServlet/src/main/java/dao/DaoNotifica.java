@@ -26,7 +26,7 @@ public class DaoNotifica {
                     Timestamp ts = rs.getTimestamp("data");
                     LocalDateTime data = ts.toLocalDateTime();
                     String descrizione = rs.getString("descrizione");
-                    boolean inviata = Boolean.parseBoolean(rs.getString("inviata"));
+                    boolean inviata = rs.getBoolean("inviata");
 
                     notifiche.add(new Notifica(tipo,data,descrizione,inviata,idContatto));
 
@@ -51,8 +51,8 @@ public class DaoNotifica {
                     Timestamp ts = rs.getTimestamp("data");
                     LocalDateTime data = ts.toLocalDateTime();
                     String descrizione = rs.getString("descrizione");
-                    boolean inviata = Boolean.parseBoolean(rs.getString("inviata"));
-                    int idContatto = Integer.parseInt(rs.getString("idContatto"));
+                    boolean inviata = rs.getBoolean("inviata");
+                    int idContatto = rs.getInt("idContatto");
 
                    return new Notifica(tipo,data,descrizione,inviata,idContatto);
                 } else{

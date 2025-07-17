@@ -3,6 +3,7 @@ package main.java.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import main.java.config.ValidazioneCampo;
 import main.java.entity.Contatto;
 import main.java.entity.Notifica;
 import main.java.service.ContattoServiceImpl;
@@ -27,6 +28,8 @@ public class NotificaServlet extends HttpServlet {
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
         String param = request.getParameter("idContatto");
+        String regex =  request.getParameter("regex");
+        String campo = request.getParameter("campo");
 
         try {
             if (param != null) {
@@ -41,6 +44,13 @@ public class NotificaServlet extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().write("{\"errore\": \"Contatto non trovato\"}");
                 }
+
+            } else if (regex != null && campo != null) {
+            //              SELECT BY CAMPO CON REGEX
+                List<String> risultati = service.ControlloRegexNotifica(regex, campo);
+                String json = mapper.writeValueAsString(risultati);
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write(json);
 
             } else {
                 //                     SELECT *
@@ -64,6 +74,7 @@ public class NotificaServlet extends HttpServlet {
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         try {
             Notifica notifica = mapper.readValue(request.getReader(), Notifica.class);
+
             boolean insert = service.insertNotifica(notifica);
             response.setContentType("application/json");
             if(insert){
@@ -86,7 +97,7 @@ public class NotificaServlet extends HttpServlet {
             String valore = request.getParameter("valore");
             Notifica notifica = service.notificaById(id);
             if(notifica != null) {
-                boolean update = service.updateNotifica(id,param,valore);
+                boolean update = service.updateNotifica(id,param,valore,response);
                 if(update) {
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.getWriter().write("{\"message\": \"Notifica aggiornata\"}" + notifica.toString());
