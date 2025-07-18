@@ -14,7 +14,7 @@ public interface ContattoService {
     // metodi contatto
 
     public List<String>  ControlloRegexContatto(String regex,String campo);
-    public List<Contatto> FiltraContatti(Contatto contatto, LocalDate dataInizio, LocalDate dataFine) throws SQLException;
+    public List<Contatto> FiltraContatti(Contatto contatto, String dataInizio, String dataFine) throws SQLException;
     public Contatto ContattoById(int id);
     public List<Contatto> selectContatto();
     public boolean insertContatto(Contatto contatto);

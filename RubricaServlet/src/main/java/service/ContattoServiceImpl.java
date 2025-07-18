@@ -48,13 +48,13 @@ public class ContattoServiceImpl implements ContattoService {
         return risultati;
     }
 
-    public List<Contatto> FiltraContatti(Contatto contatto, LocalDate dataInizio, LocalDate dataFine) throws SQLException {
+    public List<Contatto> FiltraContatti(Contatto contatto, String dataInizio, String dataFine) throws SQLException {
         List<Contatto> risultati = new ArrayList<>();
         List<Object> parametri = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM contatto WHERE 1=1");
+        StringBuilder sql = new StringBuilder("SELECT * FROM contatto WHERE 1=1 ");
 
         if (contatto.getNome() != null && contatto.getNome().matches(regexNomeCognome)) {
-            sql.append(" AND nome LIKE ? ");
+            sql.append("AND nome LIKE ? ");
             parametri.add(contatto.getNome() + "%");
         }
         if (contatto.getCognome() != null && contatto.getCognome().matches(regexNomeCognome)) {
@@ -70,12 +70,13 @@ public class ContattoServiceImpl implements ContattoService {
             parametri.add(contatto.getTelefono() + "%");
         }
         if (dataInizio != null && dataFine != null) {
-            sql.append(" AND dataNascita BETWEEN ? AND ? ");
-            parametri.add(Date.valueOf(dataInizio));
-            parametri.add(Date.valueOf(dataFine));
+            sql.append("AND dataNascita BETWEEN ? AND ? ");
+            parametri.add(dataInizio);
+            parametri.add(dataFine);
         }
-        System.out.println("SQL costruita: " + sql.toString());
-        System.out.println("Parametri: " + parametri);
+
+        System.out.println("Query costruita: " + sql.toString());
+        System.out.println("Parametri passati: " + parametri);
 
         try (Connection conn = ConnessioneDB.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql.toString())) {

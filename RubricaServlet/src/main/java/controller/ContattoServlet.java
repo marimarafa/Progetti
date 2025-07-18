@@ -40,8 +40,9 @@ public class ContattoServlet extends HttpServlet {
         String param = request.getParameter("id");
         String regex =  request.getParameter("regex");
         String campo = request.getParameter("campo");
-        LocalDate data_inizio = LocalDate.parse(request.getParameter("data_inizio"));
-        LocalDate data_fine = LocalDate.parse(request.getParameter("data_fine"));
+
+        String data_inizio = request.getParameter("data_inizio");
+        String data_fine = request.getParameter("data_fine");
 
 
         try {
