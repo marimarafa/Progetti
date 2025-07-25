@@ -55,8 +55,9 @@ public class UnitaMisuraDAO {
 
     public UnitaMisura deleteById(int id) {
         if(repo.existsById(id)){
+            UnitaMisura u = repo.findById(id).get();
             repo.deleteById(id);
-            return repo.findById(id).get();
+            return u;
         }else{
             throw new NoSuchElementException("UnitaMisura non trovata");
         }

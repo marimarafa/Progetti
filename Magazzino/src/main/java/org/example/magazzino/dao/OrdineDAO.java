@@ -55,12 +55,20 @@ public class OrdineDAO {
 
     public Ordine deleteById(int id) {
         if(repo.existsById(id)){
+            Ordine o = repo.findById(id).get();
             repo.deleteById(id);
-            return repo.findById(id).get();
+            return o;
         }else{
             throw new NoSuchElementException("Ordine non trovato");
         }
     }
 
 
+    public List<Ordine> findByClienteId(int clienteId) {
+        try {
+            return repo.OrdiniCliente(clienteId);
+        } catch (Exception e) {
+            throw new NoSuchElementException("Clientecon id: " + clienteId + " non trovato");
+        }
+    }
 }

@@ -1,7 +1,9 @@
 package org.example.magazzino.dao;
 
 
+import org.example.magazzino.entity.Categoria;
 import org.example.magazzino.entity.Cliente;
+import org.example.magazzino.exception.EntityAlreadyExistsException;
 import org.example.magazzino.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,14 +19,17 @@ public class ClienteDAO {
     ClienteRepository repo;
 
     public Cliente insert(Cliente cliente) {
-        Cliente c1 = null;
-        try {
-              c1 = repo.save(cliente);
-        } catch (Exception e) {
-            System.err.println("Errore nell'inserimento del cliente: " + e.getMessage());
+        if (existsByCodiceFiscale(cliente.getCodice_fiscale())) {
+            throw new EntityAlreadyExistsException("Cliente con codice fiscale " + cliente.getCodice_fiscale() + " già esistente");
         }
-        return c1;
+        return repo.save(cliente);
     }
+
+    public boolean existsByCodiceFiscale(String codice_fiscale) {
+        return repo.existsByCodiceFiscale(codice_fiscale);
+    }
+
+
 
     public Cliente selectById(int id) {
             return repo.findById(id)
@@ -52,9 +57,10 @@ public class ClienteDAO {
 
     public Cliente deleteById(int id) {
         if(repo.existsById(id)){
+            Cliente c = repo.findById(id).get();
             repo.deleteById(id);
-            return repo.findById(id).get();
-        }else{
+            return c;
+        } else {
             throw new NoSuchElementException("Cliente non trovato");
         }
     }

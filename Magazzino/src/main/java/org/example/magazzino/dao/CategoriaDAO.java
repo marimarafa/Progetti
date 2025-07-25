@@ -3,6 +3,7 @@ package org.example.magazzino.dao;
 
 
 import org.example.magazzino.entity.Categoria;
+import org.example.magazzino.exception.EntityAlreadyExistsException;
 import org.example.magazzino.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,14 +19,12 @@ public class CategoriaDAO {
     CategoriaRepository repo;
 
     public Categoria insert(Categoria categoria) {
-        Categoria c1 = null;
-        try {
-              c1 = repo.save(categoria);
-        } catch (Exception e) {
-            System.err.println("Errore nell'inserimento della categoria: " + e.getMessage());
+        if (repo.existsByNome(categoria.getNome())) { // supponendo che esista questo metodo in repo
+            throw new EntityAlreadyExistsException("Categoria con nome '" + categoria.getNome() + "' già esistente.");
         }
-        return c1;
+        return repo.save(categoria);
     }
+
 
     public Categoria selectById(int id) {
         if(repo.existsById(id)){
@@ -55,12 +54,14 @@ public class CategoriaDAO {
 
     public Categoria deleteById(int id) {
         if(repo.existsById(id)){
+            Categoria c = repo.findById(id).get();
             repo.deleteById(id);
-            return repo.findById(id).get();
-        }else{
+            return c;
+        } else {
             throw new NoSuchElementException("Categoria non trovata");
         }
     }
+
 
 
 }

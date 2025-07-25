@@ -54,8 +54,9 @@ public class MovimentoDAO {
 
     public Movimento deleteById(int id) {
         if(repo.existsById(id)){
+            Movimento m = repo.findById(id).get();
             repo.deleteById(id);
-            return repo.findById(id).get();
+            return m;
         }else{
             throw new NoSuchElementException("Movimento non trovato");
         }

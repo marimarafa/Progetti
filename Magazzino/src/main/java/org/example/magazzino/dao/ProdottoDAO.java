@@ -5,6 +5,7 @@ package org.example.magazzino.dao;
 import org.example.magazzino.entity.Categoria;
 import org.example.magazzino.entity.Prodotto;
 import org.example.magazzino.entity.SottoCategoria;
+import org.example.magazzino.exception.EntityAlreadyExistsException;
 import org.example.magazzino.repository.ProdottoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,14 +21,12 @@ public class ProdottoDAO {
     ProdottoRepository repo;
 
     public Prodotto insert(Prodotto prodotto) {
-        Prodotto prodotto1 = null;
-        try {
-            prodotto1 = repo.save(prodotto);
-        } catch (Exception e) {
-            System.err.println("Errore nell'inserimento del prodotto: " + e.getMessage());
+        if (repo.existsByNome(prodotto.getNome())) {
+            throw new EntityAlreadyExistsException("Prodotto con nome '" + prodotto.getNome() + "' già esistente.");
         }
-        return prodotto1;
+        return repo.save(prodotto);
     }
+
 
     public Prodotto selectById(int id) {
         if(repo.existsById(id)){
@@ -57,18 +56,36 @@ public class ProdottoDAO {
 
     public Prodotto deleteById(int id) {
         if(repo.existsById(id)){
+            Prodotto p = repo.findById(id).get();
             repo.deleteById(id);
-            return repo.findById(id).get();
-        }else{
+            return p;
+        } else {
             throw new NoSuchElementException("Prodotto non trovato");
         }
     }
 
-    public List<Prodotto> prodottiPerCategoriaeSottoCategoria(SottoCategoria sottoCategoria,int categoria ) {
+
+    public List<Prodotto> prodottiPerCategoriaeSottoCategoria(int sottoCategoria,int categoria ) {
         try {
             return repo.prodottiPerCategoriaeSottoCategoria(sottoCategoria, categoria);
         } catch (Exception e) {
-            throw new RuntimeException("Prodotto con la sotto categoria: " + sottoCategoria.getNome() + "e categoria con id: " + categoria + " non trovato");
+            throw new RuntimeException("Prodotto con la sotto categoria con id: " + sottoCategoria + "e categoria con id: " + categoria + " non trovato");
+        }
+    }
+
+    public Prodotto prodottoPerNome(String nome) {
+        try {
+            return repo.prodottoPerNome(nome);
+        } catch (Exception e) {
+            throw new RuntimeException("Prodotto con nome: " + nome + " non trovato");
+        }
+    }
+
+    public int quantitaProdotto(String nome) {
+        try {
+            return repo.QuantitaProdotto(nome);
+        } catch (Exception e) {
+            throw new RuntimeException("Prodotto con nome: " + nome + " non trovato");
         }
     }
 

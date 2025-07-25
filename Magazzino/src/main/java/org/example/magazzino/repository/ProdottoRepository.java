@@ -20,4 +20,18 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
                                         WHERE s.id = :sottoCategoriaId AND c.id = :categoriaId
                                     """)
     public List<Prodotto> prodottiPerCategoriaeSottoCategoria(int sottoCategoria , int categoria);
+
+    @Query(nativeQuery = true , value = """
+                                        SELECT * FROM prodotto WHERE nome = :nome """)
+    public Prodotto prodottoPerNome(String nome);
+
+
+    @Query(nativeQuery = true , value = """
+                                        SELECT quantita FROM prodotto WHERE nome = :nome """)
+    public int QuantitaProdotto(String nome);
+
+
+
+
+    boolean existsByNome(String nome);
 }

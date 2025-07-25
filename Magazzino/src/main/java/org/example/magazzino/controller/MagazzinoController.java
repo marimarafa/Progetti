@@ -3,6 +3,7 @@ package org.example.magazzino.controller;
 import org.example.magazzino.dto.CategoriaDTO;
 import org.example.magazzino.dto.ProdottoDTO;
 import org.example.magazzino.dto.SottoCategoriaDTO;
+import org.example.magazzino.dto.UnitaMisuraDTO;
 import org.example.magazzino.service.MagazzinoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,16 @@ public class MagazzinoController {
         return service.selectByIdProdotto(id);
     }
 
+    @GetMapping("/prodotti/nome/{nome}")
+    public ProdottoDTO getProdottoByNome(@PathVariable String nome) {
+        return service.prodottoPerNome(nome);
+    }
+
+    @GetMapping("/prodotti/quantita/{nome}")
+    public int getQuantitaProdotto(@PathVariable String nome) {
+        return service.quantitaProdotto(nome);
+    }
+
     @PostMapping("/prodotti")
     public ProdottoDTO insertProdotto(@RequestBody ProdottoDTO prodotto) throws InstanceAlreadyExistsException {
         return service.insertProdotto(prodotto);
@@ -44,10 +55,11 @@ public class MagazzinoController {
         return service.deleteProdotto(prodotto);
     }
 
-    @PostMapping("/prodotti/per-categoria")
-    public List<ProdottoDTO> getProdottiByCategoriaAndSottoCategoria(@RequestBody int sottoCategoria,
-                                                                     @RequestParam("categoriaId") int categoriaId) {
-        return service.prodottiPerCategoriaeSottoCategoria(sottoCategoria,categoriaId);
+    @GetMapping("/prodotti/filtra")
+    public List<ProdottoDTO> getProdottiByCategoriaAndSottoCategoria(
+            @RequestParam int categoriaId,
+            @RequestParam int sottoCategoriaId) {
+        return service.prodottiPerCategoriaeSottoCategoria(sottoCategoriaId, categoriaId);
     }
 
     // -------------------- SOTTOCATEGORIE ------------------------
@@ -76,5 +88,58 @@ public class MagazzinoController {
     public SottoCategoriaDTO deleteSottoCategoria(@RequestBody SottoCategoriaDTO sottoCategoria) {
         return service.deleteSottoCategoria(sottoCategoria);
     }
-}
 
+    // -------------------- CATEGORIE ------------------------
+
+    @GetMapping("/categorie")
+    public List<CategoriaDTO> getAllCategorie() {
+        return service.selectAllCategorie();
+    }
+
+    @GetMapping("/categorie/{id}")
+    public CategoriaDTO getCategoriaById(@PathVariable int id) {
+        return service.selectByIdCategoria(id);
+    }
+
+    @PostMapping("/categorie")
+    public CategoriaDTO insertCategoria(@RequestBody CategoriaDTO categoria) throws InstanceAlreadyExistsException {
+        return service.insertCategoria(categoria);
+    }
+
+    @PutMapping("/categorie")
+    public CategoriaDTO updateCategoria(@RequestBody CategoriaDTO categoria) {
+        return service.updateCategoria(categoria);
+    }
+
+    @DeleteMapping("/categorie")
+    public CategoriaDTO deleteCategoria(@RequestBody CategoriaDTO categoria) {
+        return service.deleteCategoria(categoria);
+    }
+
+    // -------------------- UNITA' DI MISURA ------------------------
+
+    @GetMapping("/unita-misura")
+    public List<UnitaMisuraDTO> getAllUnitaMisura() {
+        return service.selectAllUnitaMisura();
+    }
+
+    @GetMapping("/unita-misura/{id}")
+    public UnitaMisuraDTO getUnitaMisuraById(@PathVariable int id) {
+        return service.selectByIdUnitaMisura(id);
+    }
+
+    @PostMapping("/unita-misura")
+    public UnitaMisuraDTO insertUnitaMisura(@RequestBody UnitaMisuraDTO unita) throws InstanceAlreadyExistsException {
+        return service.insertUnitaMisura(unita);
+    }
+
+    @PutMapping("/unita-misura")
+    public UnitaMisuraDTO updateUnitaMisura(@RequestBody UnitaMisuraDTO unita) {
+        return service.updateUnitaMisura(unita);
+    }
+
+    @DeleteMapping("/unita-misura")
+    public UnitaMisuraDTO deleteUnitaMisura(@RequestBody UnitaMisuraDTO unita) {
+        return service.deleteUnitaMisura(unita);
+    }
+}

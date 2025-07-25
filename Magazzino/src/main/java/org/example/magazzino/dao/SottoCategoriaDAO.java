@@ -54,8 +54,9 @@ public class SottoCategoriaDAO {
 
     public SottoCategoria deleteById(int id) {
         if(repo.existsById(id)){
+            SottoCategoria s = repo.findById(id).get();
             repo.deleteById(id);
-            return repo.findById(id).get();
+            return s;
         }else{
             throw new NoSuchElementException("SottoCategoria non trovata");
         }
