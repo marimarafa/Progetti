@@ -1,8 +1,5 @@
 package org.example.magazzino.dto;
 
-import org.example.magazzino.entity.Cliente;
-import org.example.magazzino.entity.Prodotto;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,17 +10,17 @@ public class OrdineDTO {
     private boolean sospeso;
     private double prezzo_totale;
 
-    private ClienteDTO cliente ;
-    private List<ProdottoDTO> prodotti ;
+    private ClienteDTO cliente_id ;
+    private List<ProdottoDTO> prodotto_id;
 
-    public OrdineDTO(int id, int quantita, LocalDateTime data_ora, double prezzo_totale,boolean sospeso,ClienteDTO cliente, List<ProdottoDTO> prodotti) {
+    public OrdineDTO(int id, int quantita, LocalDateTime data_ora, double prezzo_totale,boolean sospeso,ClienteDTO cliente_id, List<ProdottoDTO> prodotto_id) {
         this.id = id;
         this.sospeso = sospeso;
         this.data_ora = data_ora;
         this.quantita = quantita;
         this.prezzo_totale = prezzo_totale;
-        this.cliente = cliente;
-        this.prodotti = prodotti;
+        this.cliente_id = cliente_id;
+        this.prodotto_id = prodotto_id;
     }
 
     public OrdineDTO() {
@@ -37,20 +34,20 @@ public class OrdineDTO {
         this.prezzo_totale = prezzo_totale;
     }
 
-    public ClienteDTO getCliente() {
-        return cliente;
+    public ClienteDTO getCliente_id() {
+        return cliente_id;
     }
 
-    public void setCliente(ClienteDTO cliente) {
-        this.cliente = cliente;
+    public void setCliente_id(ClienteDTO cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
-    public List<ProdottoDTO> getProdotti() {
-        return prodotti;
+    public List<ProdottoDTO> getProdotto_id() {
+        return prodotto_id;
     }
 
-    public void setProdotti(List<ProdottoDTO> prodotti) {
-        this.prodotti = prodotti;
+    public void setProdotto_id(List<ProdottoDTO> prodotto_id) {
+        this.prodotto_id = prodotto_id;
     }
 
     public int getId() {

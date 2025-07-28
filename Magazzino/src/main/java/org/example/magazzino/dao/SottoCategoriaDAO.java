@@ -17,13 +17,12 @@ public class SottoCategoriaDAO {
     SottoCategoriaRepository repo;
 
     public SottoCategoria insert(SottoCategoria sottoCategoria) {
-        SottoCategoria sottoCategoria1 = null;
         try {
-            sottoCategoria1 = repo.save(sottoCategoria);
+            repo.save(sottoCategoria);
         } catch (Exception e) {
             System.err.println("Errore nell'inserimento della sottoCategoria: " + e.getMessage());
         }
-        return sottoCategoria1;
+        return sottoCategoria;
     }
 
     public SottoCategoria selectById(int id) {

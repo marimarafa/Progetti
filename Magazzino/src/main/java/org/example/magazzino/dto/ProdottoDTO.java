@@ -11,18 +11,18 @@ public class ProdottoDTO {
     private int quantita;
     private boolean disponibilita;
 
-    private UnitaMisuraDTO unitaMisura ;
-    private SottoCategoriaDTO sottoCategoria ;
+    private UnitaMisuraDTO unitaMisura_id ;
+    private SottoCategoriaDTO sottoCategoria_id ;
 
-    public ProdottoDTO(int id, String nome, double prezzo, String descrizione,int quantita,boolean disponibilita, UnitaMisuraDTO unitaMisura, SottoCategoriaDTO sottoCategoria) {
+    public ProdottoDTO(int id, String nome, double prezzo, String descrizione,int quantita,boolean disponibilita, UnitaMisuraDTO unitaMisura_id, SottoCategoriaDTO sottoCategoria_id) {
         this.id = id;
         this.nome = nome;
         this.prezzo = prezzo;
         this.descrizione = descrizione;
         this.disponibilita = disponibilita;
         this.quantita = quantita;
-        this.unitaMisura = unitaMisura;
-        this.sottoCategoria = sottoCategoria;
+        this.unitaMisura_id = unitaMisura_id;
+        this.sottoCategoria_id = sottoCategoria_id;
     }
 
     public ProdottoDTO() {
@@ -42,22 +42,6 @@ public class ProdottoDTO {
 
     public void setDisponibilita(boolean disponibilita) {
         this.disponibilita = disponibilita;
-    }
-
-    public SottoCategoriaDTO getSottoCategoria() {
-        return sottoCategoria;
-    }
-
-    public void setSottoCategoria(SottoCategoriaDTO sottoCategoria) {
-        this.sottoCategoria = sottoCategoria;
-    }
-
-    public UnitaMisuraDTO getUnitaMisura() {
-        return unitaMisura;
-    }
-
-    public void setUnitaMisura(UnitaMisuraDTO unitaMisura) {
-        this.unitaMisura = unitaMisura;
     }
 
     public int getId() {
@@ -90,5 +74,21 @@ public class ProdottoDTO {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public UnitaMisuraDTO getUnitaMisura_id() {
+        return unitaMisura_id;
+    }
+
+    public void setUnitaMisura_id(UnitaMisuraDTO unitaMisura_id) {
+        this.unitaMisura_id = unitaMisura_id;
+    }
+
+    public SottoCategoriaDTO getSottoCategoria_id() {
+        return sottoCategoria_id;
+    }
+
+    public void setSottoCategoria_id(SottoCategoriaDTO sottoCategoria_id) {
+        this.sottoCategoria_id = sottoCategoria_id;
     }
 }

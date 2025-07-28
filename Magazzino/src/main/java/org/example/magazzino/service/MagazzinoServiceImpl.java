@@ -27,8 +27,11 @@ public class MagazzinoServiceImpl implements MagazzinoService{
 
     @Autowired
     ProdottoDAO dao_Prodotto;
+    @Autowired
     SottoCategoriaDAO dao_SottoCategoria;
+    @Autowired
     CategoriaDAO dao_Categoria;
+    @Autowired
     UnitaMisuraDAO  dao_UnitaMisura;
 
     //........................... METODI PRODOTTO .................................................................
@@ -49,17 +52,27 @@ public class MagazzinoServiceImpl implements MagazzinoService{
 
     @Override
     public ProdottoDTO insertProdotto(ProdottoDTO prodotto) throws InstanceAlreadyExistsException {
-         return Conversioni.daProdottoAProdottoDTO(dao_Prodotto.insert(Conversioni.daProdottoDTOAProdotto(prodotto)));
+        SottoCategoria sottoCategoria = dao_SottoCategoria.selectById(prodotto.getSottoCategoria_id().getId());
+        UnitaMisura unitaMisura = dao_UnitaMisura.selectById(prodotto.getUnitaMisura_id().getId());
+        Prodotto entity = Conversioni.daProdottoDTOAProdotto(prodotto);
+        entity.setSottoCategoria(sottoCategoria);
+        entity.setUnitaMisura(unitaMisura);
+        return Conversioni.daProdottoAProdottoDTO(dao_Prodotto.insert(entity));
     }
 
     @Override
     public ProdottoDTO updateProdotto(ProdottoDTO prodotto) {
-        return Conversioni.daProdottoAProdottoDTO(dao_Prodotto.update(Conversioni.daProdottoDTOAProdotto(prodotto)));
+        SottoCategoria sottoCategoria = dao_SottoCategoria.selectById(prodotto.getSottoCategoria_id().getId());
+        UnitaMisura unitaMisura = dao_UnitaMisura.selectById(prodotto.getUnitaMisura_id().getId());
+        Prodotto entity = Conversioni.daProdottoDTOAProdotto(prodotto);
+        entity.setSottoCategoria(sottoCategoria);
+        entity.setUnitaMisura(unitaMisura);
+        return Conversioni.daProdottoAProdottoDTO(dao_Prodotto.update(entity));
     }
 
     @Override
-    public ProdottoDTO deleteProdotto(ProdottoDTO prodotto) {
-        return Conversioni.daProdottoAProdottoDTO(dao_Prodotto.deleteById(Conversioni.daProdottoDTOAProdotto(prodotto).getId()));
+    public ProdottoDTO deleteProdotto(int id) {
+        return Conversioni.daProdottoAProdottoDTO(dao_Prodotto.deleteById(id));
     }
 
     @Override
@@ -86,10 +99,9 @@ public class MagazzinoServiceImpl implements MagazzinoService{
 
     @Override
     public int quantitaProdotto(String nome) {
-        int quantita = dao_Prodotto.quantitaProdotto(nome);
-
         Prodotto prodotto = dao_Prodotto.prodottoPerNome(nome);
-        if (quantita == 0) {
+
+        if (prodotto.getQuantita() == 0) {
             prodotto.setDisponibilita(false);
             dao_Prodotto.update(prodotto);
             throw new RuntimeException("Prodotto non disponibile in magazzino");
@@ -98,7 +110,7 @@ public class MagazzinoServiceImpl implements MagazzinoService{
             dao_Prodotto.update(prodotto);
         }
 
-        return quantita;
+        return prodotto.getQuantita();
     }
 
 
@@ -106,17 +118,23 @@ public class MagazzinoServiceImpl implements MagazzinoService{
 
     @Override
     public SottoCategoriaDTO insertSottoCategoria(SottoCategoriaDTO sottoCategoria) throws InstanceAlreadyExistsException {
-        return Conversioni.daSottoCategoriaASottoCategoriaDTO(dao_SottoCategoria.insert(Conversioni.daSottoCategoriaDTOASottoCategoria(sottoCategoria)));
+        Categoria categoria = dao_Categoria.selectById(sottoCategoria.getCategoria_id().getId());
+        SottoCategoria entity = Conversioni.daSottoCategoriaDTOASottoCategoria(sottoCategoria);
+        entity.setCategoria_id(categoria);
+        return Conversioni.daSottoCategoriaASottoCategoriaDTO(dao_SottoCategoria.insert(entity));
     }
 
     @Override
     public SottoCategoriaDTO updateSottoCategoria(SottoCategoriaDTO sottoCategoria) {
-        return Conversioni.daSottoCategoriaASottoCategoriaDTO(dao_SottoCategoria.update(Conversioni.daSottoCategoriaDTOASottoCategoria(sottoCategoria)));
+        Categoria categoria = dao_Categoria.selectById(sottoCategoria.getCategoria_id().getId());
+        SottoCategoria entity = Conversioni.daSottoCategoriaDTOASottoCategoria(sottoCategoria);
+        entity.setCategoria_id(categoria);
+        return Conversioni.daSottoCategoriaASottoCategoriaDTO(dao_SottoCategoria.update(entity));
     }
 
     @Override
-    public SottoCategoriaDTO deleteSottoCategoria(SottoCategoriaDTO sottoCategoria) {
-        return Conversioni.daSottoCategoriaASottoCategoriaDTO(dao_SottoCategoria.deleteById(Conversioni.daSottoCategoriaDTOASottoCategoria(sottoCategoria).getId()));
+    public SottoCategoriaDTO deleteSottoCategoria(int id) {
+        return Conversioni.daSottoCategoriaASottoCategoriaDTO(dao_SottoCategoria.deleteById(id));
     }
 
     @Override
@@ -135,8 +153,6 @@ public class MagazzinoServiceImpl implements MagazzinoService{
     }
 
 
-
-
     // ...........................METODI CATEGORIA............................................................
 
     @Override
@@ -150,8 +166,8 @@ public class MagazzinoServiceImpl implements MagazzinoService{
     }
 
     @Override
-    public CategoriaDTO deleteCategoria(CategoriaDTO categoria) {
-        return Conversioni.daCategoriaACategoriaDTO(dao_Categoria.deleteById(Conversioni.daCategoriaDTOACategoria(categoria).getId()));
+    public CategoriaDTO deleteCategoria(int id) {
+        return Conversioni.daCategoriaACategoriaDTO(dao_Categoria.deleteById(id));
     }
 
     @Override
@@ -187,10 +203,8 @@ public class MagazzinoServiceImpl implements MagazzinoService{
     }
 
     @Override
-    public UnitaMisuraDTO deleteUnitaMisura(UnitaMisuraDTO unita) {
-        return Conversioni.daUnitaMisuraAUnitaMisuraDTO(
-                dao_UnitaMisura.deleteById(Conversioni.daUnitaMisuraDTOAUnitaMisura(unita).getId())
-        );
+    public UnitaMisuraDTO deleteUnitaMisura(int id) {
+        return Conversioni.daUnitaMisuraAUnitaMisuraDTO(dao_UnitaMisura.deleteById(id));
     }
 
     @Override

@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 @Entity(name = "categoria")
 public class Categoria {
     @Id
-    @GeneratedValue
     private int id;
     private String nome;
 
@@ -16,6 +15,9 @@ public class Categoria {
     }
 
     public Categoria() {
+    }
+
+    public Categoria(int id) {
     }
 
     public int getId() {

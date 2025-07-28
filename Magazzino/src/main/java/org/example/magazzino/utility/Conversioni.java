@@ -24,6 +24,14 @@ public class Conversioni {
         );
     }
 
+    public static Cliente daClienteDTOAClienteID(ClienteDTO dto) {
+        return new Cliente(dto.getId());
+    }
+    public static ClienteDTO daClienteAClienteDTOID(Cliente cliente) {
+        return new ClienteDTO(cliente.getId());
+    }
+
+
     public static ClienteDTO daClienteAClienteDTO(Cliente cliente) {
         return new ClienteDTO(
                 cliente.getId(),
@@ -47,8 +55,8 @@ public class Conversioni {
                 dto.getDescrizione(),
                 dto.getQuantita(),
                 dto.isDisponibilita(),
-                daUnitaMisuraDTOAUnitaMisura(dto.getUnitaMisura()),
-                daSottoCategoriaDTOASottoCategoria(dto.getSottoCategoria())
+                daUnitaMisuraDTOAUnitaMisuraID(dto.getUnitaMisura_id()),
+                daSottoCategoriaDTOASottoCategoriaID(dto.getSottoCategoria_id())
         );
     }
 
@@ -61,7 +69,7 @@ public class Conversioni {
                 prodotto.getQuantita(),
                 prodotto.isDisponibilita(),
                 daUnitaMisuraAUnitaMisuraDTO(prodotto.getUnitaMisura()),
-                daSottoCategoriaASottoCategoriaDTO(prodotto.getSottoCategoria())
+                daSottoCategoriaASottoCategoriaDTOID(prodotto.getSottoCategoria())
         );
     }
 
@@ -74,6 +82,14 @@ public class Conversioni {
         return new CategoriaDTO(categoria.getId(), categoria.getNome());
     }
 
+    public static CategoriaDTO daCategoriaACategoriaDTOID(Categoria categoria) {
+        return new CategoriaDTO(categoria.getId());
+    }
+    public static Categoria daCategoriaDTOACategoriaID(CategoriaDTO dto) {
+        return new Categoria(dto.getId());
+    }
+
+
     // -------------------- Conversione UNITA DI MISURA --------------------
     public static UnitaMisura daUnitaMisuraDTOAUnitaMisura(UnitaMisuraDTO dto) {
         return new UnitaMisura(dto.getId(), dto.getDescrizione());
@@ -83,19 +99,34 @@ public class Conversioni {
         return new UnitaMisuraDTO(um.getId(), um.getDescrizione());
     }
 
+    public static UnitaMisura daUnitaMisuraDTOAUnitaMisuraID(UnitaMisuraDTO dto) {
+        return new UnitaMisura(dto.getId());
+    }
+
+    public static UnitaMisuraDTO daUnitaMisuraAUnitaMisuraDTOID(UnitaMisura um) {
+        return new UnitaMisuraDTO(um.getId());
+    }
+
     // -------------------- Conversione SOTTOCATEGORIA --------------------
     public static SottoCategoria daSottoCategoriaDTOASottoCategoria(SottoCategoriaDTO dto) {
-        return new SottoCategoria(dto.getId(), dto.getNome(), daCategoriaDTOACategoria(dto.getSuperCategoria()));
+        return new SottoCategoria(dto.getId(), dto.getNome(), daCategoriaDTOACategoriaID(dto.getCategoria_id()));
     }
 
     public static SottoCategoriaDTO daSottoCategoriaASottoCategoriaDTO(SottoCategoria sc) {
-        return new SottoCategoriaDTO(sc.getId(), sc.getNome(),daCategoriaACategoriaDTO(sc.getSuperCategoria()));
+        return new SottoCategoriaDTO(sc.getId(), sc.getNome(),daCategoriaACategoriaDTOID(sc.getCategoria_id()));
+    }
+    public static SottoCategoriaDTO daSottoCategoriaASottoCategoriaDTOID(SottoCategoria sc) {
+        return new SottoCategoriaDTO(sc.getId());
+    }
+
+    public static SottoCategoria daSottoCategoriaDTOASottoCategoriaID(SottoCategoriaDTO dto) {
+        return new SottoCategoria(dto.getId());
     }
 
     // -------------------- Conversione ORDINE --------------------
     public static Ordine daOrdineDTOAOrdine(OrdineDTO dto) {
         List<Prodotto> prodotti = new ArrayList<>();
-        for (ProdottoDTO prodottoDTO : dto.getProdotti()) {
+        for (ProdottoDTO prodottoDTO : dto.getProdotto_id()) {
             prodotti.add(daProdottoDTOAProdotto(prodottoDTO));
         }
         return new Ordine(dto.getId()
@@ -103,13 +134,13 @@ public class Conversioni {
                 dto.getData_ora(),
                 dto.getPrezzo_totale(),
                 dto.isSospeso(),
-                daClienteDTOACliente(dto.getCliente())
+                daClienteDTOAClienteID(dto.getCliente_id())
                 ,prodotti);
     }
 
     public static OrdineDTO daOrdineAOrdineDTO(Ordine ordine) {
         List<ProdottoDTO> prodottiDTO = new ArrayList<>();
-        for (Prodotto prodotto : ordine.getProdotti()) {
+        for (Prodotto prodotto : ordine.getProdotto_id()) {
             prodottiDTO.add(daProdottoAProdottoDTO(prodotto));
         }
         return new OrdineDTO(
@@ -118,7 +149,7 @@ public class Conversioni {
                 ordine.getData_ora(),
                 ordine.getPrezzo_totale(),
                 ordine.isSospeso(),
-                daClienteAClienteDTO(ordine.getCliente())
+                daClienteAClienteDTOID(ordine.getCliente_id())
                 ,prodottiDTO
         );
     }

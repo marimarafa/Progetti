@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 @Entity(name = "prodotto")
 public class Prodotto {
     @Id
-    @GeneratedValue
     private int id;
+
     private String nome;
     private double prezzo;
     private String descrizione;
@@ -14,21 +14,21 @@ public class Prodotto {
     private int quantita;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Unitamisura_id",referencedColumnName = "id")
-    private UnitaMisura unitaMisura ;
+    private UnitaMisura unitaMisura_id ;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "sottocategoria_id",referencedColumnName = "id")
-    private SottoCategoria sottoCategoria ;
+    private SottoCategoria sottoCategoria_id ;
 
     public Prodotto(int id, String nome, double prezzo, String descrizione,int quantita,boolean disponibilita, UnitaMisura unitaMisura, SottoCategoria sottoCategoria) {
         this.id = id;
         this.nome = nome;
         this.prezzo = prezzo;
         this.descrizione = descrizione;
-        this.unitaMisura = unitaMisura;
-        this.sottoCategoria = sottoCategoria;
+        this.unitaMisura_id = unitaMisura;
+        this.sottoCategoria_id = sottoCategoria;
         this.quantita = quantita;
         this.disponibilita = disponibilita;
     }
@@ -50,19 +50,19 @@ public class Prodotto {
     }
 
     public UnitaMisura getUnitaMisura() {
-        return unitaMisura;
+        return unitaMisura_id;
     }
 
     public void setUnitaMisura(UnitaMisura unitaMisura) {
-        this.unitaMisura = unitaMisura;
+        this.unitaMisura_id = unitaMisura;
     }
 
     public SottoCategoria getSottoCategoria() {
-        return sottoCategoria;
+        return sottoCategoria_id;
     }
 
     public void setSottoCategoria(SottoCategoria sottoCategoria) {
-        this.sottoCategoria = sottoCategoria;
+        this.sottoCategoria_id = sottoCategoria;
     }
 
     public Prodotto() {

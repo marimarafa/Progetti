@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
-    boolean existsByCodiceFiscale(String codiceFiscale);
+    boolean existsByCodiceFiscale(String codice_fiscale);
 }

@@ -7,13 +7,12 @@ import java.time.LocalDateTime;
 @Entity(name = "movimento")
 public class Movimento {
     @Id
-    @GeneratedValue
     private int id;
     private String tipo;
     private LocalDateTime data_ora;
     private String descrizione;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ordine_id",referencedColumnName = "id")
     private Ordine ordine ;
 

@@ -27,6 +27,9 @@ public class ClienteDTO {
     public ClienteDTO() {
     }
 
+    public ClienteDTO(int id) {
+    }
+
     public int getId() {
         return id;
     }

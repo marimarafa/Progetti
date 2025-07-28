@@ -11,7 +11,7 @@ public interface BancoService {
     //      METODI CLIENTE
     public ClienteDTO insertCliente(ClienteDTO cliente);
     public ClienteDTO updateCliente(ClienteDTO cliente);
-    public ClienteDTO deleteCliente(ClienteDTO cliente);
+    public ClienteDTO deleteCliente(int id);
     public List<ClienteDTO> selectAllClienti();
     public ClienteDTO selectByIdCliente(int id);
     //      METODI ORDINI
@@ -22,7 +22,7 @@ public interface BancoService {
     //      METODI MOVIMENTI
     MovimentoDTO insertMovimento(MovimentoDTO movimentoDTO);
     MovimentoDTO updateMovimento(MovimentoDTO movimentoDTO);
-    MovimentoDTO deleteMovimento(MovimentoDTO movimentoDTO);
+    MovimentoDTO deleteMovimento(int id);
     List<MovimentoDTO> selectAllMovimenti();
     MovimentoDTO selectMovimentoById(int id);
 }

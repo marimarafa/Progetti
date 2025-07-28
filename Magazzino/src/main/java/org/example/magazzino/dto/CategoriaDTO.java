@@ -12,6 +12,10 @@ public class CategoriaDTO {
     public CategoriaDTO() {
     }
 
+    public CategoriaDTO(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

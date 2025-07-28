@@ -28,9 +28,9 @@ public class BancoController {
         return bancoService.updateCliente(clienteDTO);
     }
 
-    @DeleteMapping("/cliente")
-    public ClienteDTO eliminaCliente(@RequestBody ClienteDTO clienteDTO) {
-        return bancoService.deleteCliente(clienteDTO);
+    @DeleteMapping("/cliente/{id}")
+    public ClienteDTO eliminaCliente(@PathVariable int id) {
+        return bancoService.deleteCliente(id);
     }
 
     @GetMapping("/clienti")
@@ -55,9 +55,9 @@ public class BancoController {
         return bancoService.updateMovimento(movimentoDTO);
     }
 
-    @DeleteMapping("/movimento")
-    public MovimentoDTO eliminaMovimento(@RequestBody MovimentoDTO movimentoDTO) {
-        return bancoService.deleteMovimento(movimentoDTO);
+    @DeleteMapping("/movimento/{id}")
+    public MovimentoDTO eliminaMovimento(@PathVariable int id) {
+        return bancoService.deleteMovimento(id);
     }
 
     @GetMapping("/movimenti")

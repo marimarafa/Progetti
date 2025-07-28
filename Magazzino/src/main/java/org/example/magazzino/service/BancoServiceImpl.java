@@ -3,12 +3,11 @@ package org.example.magazzino.service;
 import org.example.magazzino.dao.ClienteDAO;
 import org.example.magazzino.dao.MovimentoDAO;
 import org.example.magazzino.dao.OrdineDAO;
+import org.example.magazzino.dao.ProdottoDAO;
 import org.example.magazzino.dto.ClienteDTO;
 import org.example.magazzino.dto.MovimentoDTO;
 import org.example.magazzino.dto.OrdineDTO;
-import org.example.magazzino.entity.Cliente;
-import org.example.magazzino.entity.Movimento;
-import org.example.magazzino.entity.Ordine;
+import org.example.magazzino.entity.*;
 import org.example.magazzino.utility.Conversioni;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,12 @@ public class BancoServiceImpl implements BancoService {
 
     @Autowired
     private ClienteDAO daoCliente;
+    @Autowired
     private OrdineDAO daoOrdine;
+    @Autowired
     private MovimentoDAO daoMovimento;
+    @Autowired
+    private ProdottoDAO daoProdotto;
 
     // ---------------- METODI CLIENTE ----------------
 
@@ -48,8 +51,8 @@ public class BancoServiceImpl implements BancoService {
     }
 
     @Override
-    public ClienteDTO deleteCliente(ClienteDTO dto) {
-        Cliente eliminato = daoCliente.deleteById(dto.getId());
+    public ClienteDTO deleteCliente(int id) {
+        Cliente eliminato = daoCliente.deleteById(id);
         return Conversioni.daClienteAClienteDTO(eliminato);
     }
 
@@ -73,20 +76,30 @@ public class BancoServiceImpl implements BancoService {
 
     @Override
     public OrdineDTO insertOrdine(OrdineDTO ordineDTO) {
-        Ordine ordine = Conversioni.daOrdineDTOAOrdine(ordineDTO);
-        Ordine salvato = daoOrdine.insert(ordine);
-        return Conversioni.daOrdineAOrdineDTO(salvato);
+        Cliente cliente = daoCliente.selectById(ordineDTO.getCliente_id().getId());
+        List<Prodotto> prodotti = ordineDTO.getProdotto_id().stream()
+                .map(prodottoDTO -> daoProdotto.selectById(prodottoDTO.getId()))
+                .toList();
+
+        Ordine entity = Conversioni.daOrdineDTOAOrdine(ordineDTO);
+        entity.setCliente_id(cliente);
+        entity.setProdotto_id(prodotti);
+
+        return Conversioni.daOrdineAOrdineDTO(daoOrdine.insert(entity));
     }
 
     @Override
     public OrdineDTO updateOrdine(OrdineDTO ordineDTO) {
-        Ordine esistente = daoOrdine.selectById(ordineDTO.getId());
-        if (esistente != null){
-            Ordine aggiornato = daoOrdine.update(esistente);
-            return Conversioni.daOrdineAOrdineDTO(aggiornato);
-        } else {
-            throw new RuntimeException("Ordine non trovato");
-        }
+        Cliente cliente = daoCliente.selectById(ordineDTO.getCliente_id().getId());
+        List<Prodotto> prodotti = ordineDTO.getProdotto_id().stream()
+                .map(prodottoDTO -> daoProdotto.selectById(prodottoDTO.getId()))
+                .toList();
+
+        Ordine entity = Conversioni.daOrdineDTOAOrdine(ordineDTO);
+        entity.setCliente_id(cliente);
+        entity.setProdotto_id(prodotti);
+
+        return Conversioni.daOrdineAOrdineDTO(daoOrdine.update(entity));
     }
 
 
@@ -123,8 +136,8 @@ public class BancoServiceImpl implements BancoService {
     }
 
     @Override
-    public MovimentoDTO deleteMovimento(MovimentoDTO dto) {
-        return Conversioni.daMovimentoAMovimentoDTO(daoMovimento.deleteById(dto.getId()));
+    public MovimentoDTO deleteMovimento(int id) {
+        return Conversioni.daMovimentoAMovimentoDTO(daoMovimento.deleteById(id));
     }
 
     @Override

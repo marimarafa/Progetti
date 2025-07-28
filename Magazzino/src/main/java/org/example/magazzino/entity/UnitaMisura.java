@@ -7,11 +7,14 @@ import jakarta.persistence.Id;
 @Entity(name = "unitamisura")
 public class UnitaMisura {
     @Id
-    @GeneratedValue
     private int id;
     private String descrizione;
 
     public UnitaMisura() {
+    }
+
+    public UnitaMisura(int id) {
+        this.id = id;
     }
 
     public UnitaMisura(int id, String descrizione) {

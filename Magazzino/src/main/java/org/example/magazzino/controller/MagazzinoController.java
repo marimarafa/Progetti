@@ -30,17 +30,17 @@ public class MagazzinoController {
         return service.selectByIdProdotto(id);
     }
 
-    @GetMapping("/prodotti/nome/{nome}")
-    public ProdottoDTO getProdottoByNome(@PathVariable String nome) {
+    @GetMapping("/prodotti/nome")
+    public ProdottoDTO getProdottoByNome(@RequestParam String nome) {
         return service.prodottoPerNome(nome);
     }
 
-    @GetMapping("/prodotti/quantita/{nome}")
-    public int getQuantitaProdotto(@PathVariable String nome) {
+    @GetMapping("/prodotti/quantita")
+    public int getQuantitaProdotto(@RequestParam String nome) {
         return service.quantitaProdotto(nome);
     }
 
-    @PostMapping("/prodotti")
+    @PostMapping(path = "/prodotti", consumes = "application/json", produces = "application/json")
     public ProdottoDTO insertProdotto(@RequestBody ProdottoDTO prodotto) throws InstanceAlreadyExistsException {
         return service.insertProdotto(prodotto);
     }
@@ -50,16 +50,17 @@ public class MagazzinoController {
         return service.updateProdotto(prodotto);
     }
 
-    @DeleteMapping("/prodotti")
-    public ProdottoDTO deleteProdotto(@RequestBody ProdottoDTO prodotto) {
-        return service.deleteProdotto(prodotto);
+    @DeleteMapping("/prodotti/{id}")
+    public ProdottoDTO deleteProdotto(@PathVariable int id) {
+        return service.deleteProdotto(id);
     }
 
-    @GetMapping("/prodotti/filtra")
+    @GetMapping("/prodotti/{sottoCategoria_id}/{categoria_id}")
     public List<ProdottoDTO> getProdottiByCategoriaAndSottoCategoria(
-            @RequestParam int categoriaId,
-            @RequestParam int sottoCategoriaId) {
-        return service.prodottiPerCategoriaeSottoCategoria(sottoCategoriaId, categoriaId);
+            @PathVariable int sottoCategoria_id,
+            @PathVariable int categoria_id
+            ) {
+        return service.prodottiPerCategoriaeSottoCategoria(sottoCategoria_id, categoria_id);
     }
 
     // -------------------- SOTTOCATEGORIE ------------------------
@@ -84,9 +85,9 @@ public class MagazzinoController {
         return service.updateSottoCategoria(sottoCategoria);
     }
 
-    @DeleteMapping("/sottocategorie")
-    public SottoCategoriaDTO deleteSottoCategoria(@RequestBody SottoCategoriaDTO sottoCategoria) {
-        return service.deleteSottoCategoria(sottoCategoria);
+    @DeleteMapping("/sottocategorie/{id}")
+    public SottoCategoriaDTO deleteSottoCategoria(@PathVariable int id) {
+        return service.deleteSottoCategoria(id);
     }
 
     // -------------------- CATEGORIE ------------------------
@@ -111,9 +112,9 @@ public class MagazzinoController {
         return service.updateCategoria(categoria);
     }
 
-    @DeleteMapping("/categorie")
-    public CategoriaDTO deleteCategoria(@RequestBody CategoriaDTO categoria) {
-        return service.deleteCategoria(categoria);
+    @DeleteMapping("/categorie/{id}")
+    public CategoriaDTO deleteCategoria(@PathVariable int id) {
+        return service.deleteCategoria(id);
     }
 
     // -------------------- UNITA' DI MISURA ------------------------
@@ -138,8 +139,8 @@ public class MagazzinoController {
         return service.updateUnitaMisura(unita);
     }
 
-    @DeleteMapping("/unita-misura")
-    public UnitaMisuraDTO deleteUnitaMisura(@RequestBody UnitaMisuraDTO unita) {
-        return service.deleteUnitaMisura(unita);
+    @DeleteMapping("/unita-misura/{id}")
+    public UnitaMisuraDTO deleteUnitaMisura(@PathVariable int id) {
+        return service.deleteUnitaMisura(id);
     }
 }

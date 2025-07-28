@@ -8,7 +8,6 @@ import java.util.List;
 @Entity(name = "ordine")
 public class Ordine {
     @Id
-    @GeneratedValue
     private int id;
     private int quantita;
     private LocalDateTime data_ora;
@@ -17,44 +16,44 @@ public class Ordine {
 
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "Cliente_id",referencedColumnName = "id")
-    private Cliente cliente ;
+    private Cliente cliente_id ;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id")
-    private List<Prodotto> prodotti ;
+    private List<Prodotto> prodotto_id ;
 
 
 
 
-    public Ordine(int id, int quantita, LocalDateTime data_ora, double prezzo_totale,boolean sospeso,Cliente cliente, List<Prodotto> prodotti) {
+    public Ordine(int id, int quantita, LocalDateTime data_ora, double prezzo_totale,boolean sospeso,Cliente cliente_id, List<Prodotto> prodotto_id) {
         this.id = id;
         this.sospeso = sospeso;
         this.data_ora = data_ora;
         this.quantita = quantita;
         this.prezzo_totale = prezzo_totale;
-        this.cliente = cliente;
-        this.prodotti = prodotti;
+        this.cliente_id = cliente_id;
+        this.prodotto_id = prodotto_id;
     }
 
     public Ordine() {
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Cliente getCliente_id() {
+        return cliente_id;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCliente_id(Cliente cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
-    public List<Prodotto> getProdotti() {
-        return prodotti;
+    public List<Prodotto> getProdotto_id() {
+        return prodotto_id;
     }
 
-    public void setProdotti(List<Prodotto> prodotti) {
-        this.prodotti = prodotti;
+    public void setProdotto_id(List<Prodotto> prodotto_id) {
+        this.prodotto_id = prodotto_id;
     }
 
     public double getPrezzo_totale() {

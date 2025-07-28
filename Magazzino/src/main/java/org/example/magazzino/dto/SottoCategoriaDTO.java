@@ -1,32 +1,33 @@
 package org.example.magazzino.dto;
 
-import jakarta.persistence.*;
-import org.example.magazzino.entity.Categoria;
-
 
 public class SottoCategoriaDTO {
 
     private int id;
     private String nome;
 
-    private CategoriaDTO superCategoria ;
+    private CategoriaDTO categoria_id ;
 
 
-    public SottoCategoriaDTO(int id, String nome, CategoriaDTO superCategoria) {
+    public SottoCategoriaDTO(int id, String nome, CategoriaDTO categoria_id) {
         this.id = id;
         this.nome = nome;
-        this.superCategoria = superCategoria;
+        this.categoria_id = categoria_id;
     }
 
     public SottoCategoriaDTO() {
     }
 
-    public CategoriaDTO getSuperCategoria() {
-        return superCategoria;
+    public SottoCategoriaDTO(int id) {
+        this.id = id;
     }
 
-    public void setSuperCategoria(CategoriaDTO superCategoria) {
-        this.superCategoria = superCategoria;
+    public CategoriaDTO getCategoria_id() {
+        return categoria_id;
+    }
+
+    public void setCategoria_id(CategoriaDTO categoria_id) {
+        this.categoria_id = categoria_id;
     }
 
     public int getId() {

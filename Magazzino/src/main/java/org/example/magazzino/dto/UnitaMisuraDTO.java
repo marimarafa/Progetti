@@ -12,6 +12,10 @@ public class UnitaMisuraDTO {
         this.descrizione = descrizione;
     }
 
+    public UnitaMisuraDTO(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

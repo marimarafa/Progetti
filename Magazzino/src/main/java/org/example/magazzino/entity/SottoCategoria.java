@@ -5,30 +5,33 @@ import jakarta.persistence.*;
 @Entity(name = "sottocategoria")
 public class SottoCategoria {
     @Id
-    @GeneratedValue
     private int id;
     private String nome;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "categoria_id",referencedColumnName = "id")
-    private Categoria superCategoria ;
+    private Categoria categoria_id ;
 
 
-    public SottoCategoria(int id, String nome,Categoria superCategoria) {
+    public SottoCategoria(int id, String nome,Categoria categoria_id) {
         this.id = id;
         this.nome = nome;
-        this.superCategoria = superCategoria;
+        this.categoria_id = categoria_id;
     }
 
     public SottoCategoria() {
     }
 
-    public Categoria getSuperCategoria() {
-        return superCategoria;
+    public SottoCategoria(int id) {
+        this.id = id;
     }
 
-    public void setSuperCategoria(Categoria superCategoria) {
-        this.superCategoria = superCategoria;
+    public Categoria getCategoria_id() {
+        return categoria_id;
+    }
+
+    public void setCategoria_id(Categoria categoria_id) {
+        this.categoria_id = categoria_id;
     }
 
     public int getId() {

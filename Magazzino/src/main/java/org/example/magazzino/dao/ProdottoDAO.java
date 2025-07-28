@@ -69,7 +69,7 @@ public class ProdottoDAO {
         try {
             return repo.prodottiPerCategoriaeSottoCategoria(sottoCategoria, categoria);
         } catch (Exception e) {
-            throw new RuntimeException("Prodotto con la sotto categoria con id: " + sottoCategoria + "e categoria con id: " + categoria + " non trovato");
+            throw new RuntimeException("Prodotto con la sotto categoria con id: " + sottoCategoria + " e categoria con id: " + categoria + " non trovato");
         }
     }
 

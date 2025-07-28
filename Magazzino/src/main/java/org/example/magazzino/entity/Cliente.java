@@ -1,5 +1,6 @@
 package org.example.magazzino.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -12,17 +13,20 @@ public class Cliente {
     private String cognome;
     private String indirizzo;
     private String email;
-    private String codice_fiscale;
     private String telefono;
     private String numero_carta;
     private String partita_iva;
+
+    @Column(name = "codice_fiscale")
+    private String codiceFiscale;
+
 
     public Cliente(int id, String nome,String cognome,String indirizzo,String codice_fiscale,String email,String telefono,String numero_carta,String partita_iva) {
         this.id = id;
         this.partita_iva = partita_iva;
         this.numero_carta = numero_carta;
         this.telefono = telefono;
-        this.codice_fiscale = codice_fiscale;
+        this.codiceFiscale = codice_fiscale;
         this.email = email;
         this.indirizzo = indirizzo;
         this.cognome = cognome;
@@ -30,6 +34,10 @@ public class Cliente {
     }
 
     public Cliente() {
+    }
+
+
+    public Cliente(int id) {
     }
 
     public int getId() {
@@ -73,11 +81,11 @@ public class Cliente {
     }
 
     public String getCodice_fiscale() {
-        return codice_fiscale;
+        return codiceFiscale;
     }
 
     public void setCodice_fiscale(String codice_fiscale) {
-        this.codice_fiscale = codice_fiscale;
+        this.codiceFiscale = codice_fiscale;
     }
 
     public String getTelefono() {
