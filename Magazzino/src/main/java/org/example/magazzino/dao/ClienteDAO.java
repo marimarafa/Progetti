@@ -32,8 +32,11 @@ public class ClienteDAO {
 
 
     public Cliente selectById(int id) {
-            return repo.findById(id)
-                    .orElseThrow(() -> new NoSuchElementException("Cliente non trovato con ID: " + id));
+        if(repo.existsById(id)){
+            return repo.findById(id).get();
+        } else{
+            throw new NoSuchElementException("Cliente non trovato");
+        }
         }
 
 

@@ -1,9 +1,9 @@
 package org.example.magazzino.repository;
 
 import org.example.magazzino.entity.Ordine;
-import org.example.magazzino.entity.Prodotto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface OrdineRepository extends JpaRepository<Ordine, Integer> {
 
     @Query(nativeQuery = true , value = """
-                                        SELECT * FROM ordine WHERE Cliente_id = :Cliente_id""")
-    public List<Ordine> OrdiniCliente(int Cliente_id);
+                                        SELECT * FROM ordine WHERE CLIENTE_ID = :ClienteId""")
+    public List<Ordine> OrdiniCliente(int ClienteId);
 
 }

@@ -25,6 +25,10 @@ public class ProdottoDTO {
         this.sottoCategoria_id = sottoCategoria_id;
     }
 
+    public ProdottoDTO(int id) {
+        this.id = id;
+    }
+
     public ProdottoDTO() {
     }
 

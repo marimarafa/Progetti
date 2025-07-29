@@ -5,21 +5,26 @@ import jakarta.persistence.*;
 @Entity(name = "prodotto")
 public class Prodotto {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @Column(name = "NOME")
     private String nome;
+    @Column(name = "PREZZO")
     private double prezzo;
+    @Column(name = "DESCRIZIONE")
     private String descrizione;
+    @Column(name = "DISPONIBILITA")
     private boolean disponibilita;
+    @Column(name = "QUANTITA")
     private int quantita;
 
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Unitamisura_id",referencedColumnName = "id")
+    @JoinColumn(name = "UNITAMISURA_ID",referencedColumnName = "ID")
     private UnitaMisura unitaMisura_id ;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "sottocategoria_id",referencedColumnName = "id")
+    @JoinColumn(name = "SOTTOCATEGORIA_ID",referencedColumnName = "ID")
     private SottoCategoria sottoCategoria_id ;
 
     public Prodotto(int id, String nome, double prezzo, String descrizione,int quantita,boolean disponibilita, UnitaMisura unitaMisura, SottoCategoria sottoCategoria) {
@@ -31,6 +36,10 @@ public class Prodotto {
         this.sottoCategoria_id = sottoCategoria;
         this.quantita = quantita;
         this.disponibilita = disponibilita;
+    }
+
+    public Prodotto(int id) {
+        this.id = id;
     }
 
     public int getQuantita() {

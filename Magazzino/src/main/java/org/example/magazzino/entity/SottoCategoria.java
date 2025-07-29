@@ -5,11 +5,13 @@ import jakarta.persistence.*;
 @Entity(name = "sottocategoria")
 public class SottoCategoria {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "NOME")
     private String nome;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "categoria_id",referencedColumnName = "id")
+    @JoinColumn(name = "CATEGORIA_ID",referencedColumnName = "ID")
     private Categoria categoria_id ;
 
 

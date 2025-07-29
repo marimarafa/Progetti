@@ -1,13 +1,13 @@
 package org.example.magazzino.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "unitamisura")
 public class UnitaMisura {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "DESCRIZIONE")
     private String descrizione;
 
     public UnitaMisura() {

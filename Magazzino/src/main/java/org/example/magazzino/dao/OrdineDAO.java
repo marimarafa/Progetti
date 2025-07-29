@@ -66,9 +66,14 @@ public class OrdineDAO {
 
     public List<Ordine> findByClienteId(int clienteId) {
         try {
-            return repo.OrdiniCliente(clienteId);
+            List<Ordine> ordini = repo.OrdiniCliente(clienteId);
+            if(ordini.isEmpty()){
+                throw new NoSuchElementException("Nessun ordine trovato per il cliente con id: " + clienteId);
+            }
+            return ordini;
         } catch (Exception e) {
-            throw new NoSuchElementException("Clientecon id: " + clienteId + " non trovato");
+            System.err.println("Errore nella ricerca dei ordini: " + e.getMessage());
+            throw new NoSuchElementException("Cliente con id: " + clienteId + " non trovato");
         }
     }
 }

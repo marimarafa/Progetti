@@ -7,6 +7,7 @@ import org.example.magazzino.dao.ProdottoDAO;
 import org.example.magazzino.dto.ClienteDTO;
 import org.example.magazzino.dto.MovimentoDTO;
 import org.example.magazzino.dto.OrdineDTO;
+import org.example.magazzino.dto.ProdottoDTO;
 import org.example.magazzino.entity.*;
 import org.example.magazzino.utility.Conversioni;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,30 +77,21 @@ public class BancoServiceImpl implements BancoService {
 
     @Override
     public OrdineDTO insertOrdine(OrdineDTO ordineDTO) {
-        Cliente cliente = daoCliente.selectById(ordineDTO.getCliente_id().getId());
-        List<Prodotto> prodotti = ordineDTO.getProdotto_id().stream()
-                .map(prodottoDTO -> daoProdotto.selectById(prodottoDTO.getId()))
-                .toList();
+            Cliente cliente = daoCliente.selectById(ordineDTO.getClienteId().getId());
+            Ordine ordine = Conversioni.daOrdineDTOAOrdine(ordineDTO);
+            ordine.setClienteId(cliente);
 
-        Ordine entity = Conversioni.daOrdineDTOAOrdine(ordineDTO);
-        entity.setCliente_id(cliente);
-        entity.setProdotto_id(prodotti);
+            return Conversioni.daOrdineAOrdineDTO(daoOrdine.insert(ordine));
 
-        return Conversioni.daOrdineAOrdineDTO(daoOrdine.insert(entity));
     }
 
     @Override
     public OrdineDTO updateOrdine(OrdineDTO ordineDTO) {
-        Cliente cliente = daoCliente.selectById(ordineDTO.getCliente_id().getId());
-        List<Prodotto> prodotti = ordineDTO.getProdotto_id().stream()
-                .map(prodottoDTO -> daoProdotto.selectById(prodottoDTO.getId()))
-                .toList();
+        Cliente cliente = daoCliente.selectById(ordineDTO.getClienteId().getId());
+        Ordine ordine = Conversioni.daOrdineDTOAOrdine(ordineDTO);
+        ordine.setClienteId(cliente);
 
-        Ordine entity = Conversioni.daOrdineDTOAOrdine(ordineDTO);
-        entity.setCliente_id(cliente);
-        entity.setProdotto_id(prodotti);
-
-        return Conversioni.daOrdineAOrdineDTO(daoOrdine.update(entity));
+        return Conversioni.daOrdineAOrdineDTO(daoOrdine.update(ordine));
     }
 
 
@@ -111,13 +103,29 @@ public class BancoServiceImpl implements BancoService {
     }
 
     @Override
+    public OrdineDTO deleteOrdine(int ordineId) {
+        Ordine eliminato = daoOrdine.deleteById(ordineId);
+        return Conversioni.daOrdineAOrdineDTO(eliminato);
+    }
+
+    @Override
+    public List<OrdineDTO> selectAllOrdini() {
+        List<Ordine> ordini = daoOrdine.selectAll();
+        List<OrdineDTO> ordiniDto = new ArrayList<>();
+        for (Ordine o : ordini) {
+            ordiniDto.add(Conversioni.daOrdineAOrdineDTO(o));
+        }
+        return ordiniDto;
+    }
+
+    @Override
     public List<OrdineDTO> ordiniCliente(int clienteId) {
         List<Ordine> ordini = daoOrdine.findByClienteId(clienteId);
-        List<OrdineDTO> ordinidto = new ArrayList<>();
+        List<OrdineDTO> ordiniDto = new ArrayList<>();
         for (Ordine o : ordini) {
-            ordinidto.add(Conversioni.daOrdineAOrdineDTO(o));
+            ordiniDto.add(Conversioni.daOrdineAOrdineDTO(o));
         }
-        return ordinidto;
+        return ordiniDto;
     }
 
     //......................METODI MOVIMENTO..................................

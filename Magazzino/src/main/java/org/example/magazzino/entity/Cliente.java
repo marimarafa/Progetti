@@ -1,24 +1,30 @@
 package org.example.magazzino.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "cliente")
 public class Cliente {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "NOME")
     private String nome;
+    @Column(name = "COGNOME")
     private String cognome;
+    @Column(name = "INDIRIZZO")
     private String indirizzo;
+    @Column(name = "CODICE_FISCALE")
+    private String codiceFiscale;
+    @Column(name = "EMAIL")
     private String email;
+    @Column(name = "TELEFONO")
     private String telefono;
+    @Column(name = "NUMERO_CARTA")
     private String numero_carta;
+    @Column(name = "PARTITA_IVA")
     private String partita_iva;
 
-    @Column(name = "codice_fiscale")
-    private String codiceFiscale;
+
 
 
     public Cliente(int id, String nome,String cognome,String indirizzo,String codice_fiscale,String email,String telefono,String numero_carta,String partita_iva) {

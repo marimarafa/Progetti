@@ -5,154 +5,148 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema MAGAZZINO
 -- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema magazzino
--- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS MAGAZZINO DEFAULT CHARACTER SET utf8mb3 ;
+USE MAGAZZINO ;
 
 -- -----------------------------------------------------
--- Schema magazzino
+-- Table MAGAZZINO.CATEGORIA
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS magazzino DEFAULT CHARACTER SET utf8mb3 ;
-USE magazzino ;
+CREATE TABLE IF NOT EXISTS CATEGORIA (
+                                         ID INT NOT NULL AUTO_INCREMENT,
+                                         NOME VARCHAR(45) NOT NULL,
+                                         PRIMARY KEY (ID)
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb3;
 
 -- -----------------------------------------------------
--- Table magazzino.categoria
+-- Table MAGAZZINO.CLIENTE
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS magazzino.categoria (
-                                                   id INT NOT NULL AUTO_INCREMENT,
-                                                   nome VARCHAR(45) NOT NULL,
-                                                   PRIMARY KEY (id))
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table magazzino.cliente
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS magazzino.cliente (
-                                                 id INT NOT NULL AUTO_INCREMENT,
-                                                 nome VARCHAR(45) NOT NULL,
-                                                 cognome VARCHAR(45) NOT NULL,
-                                                 indirizzo VARCHAR(45) NULL DEFAULT NULL,
-                                                 codice_fiscale VARCHAR(45) NOT NULL,
-                                                 email VARCHAR(45) NULL DEFAULT NULL,
-                                                 telefono VARCHAR(45) NULL DEFAULT NULL,
-                                                 numero_carta VARCHAR(45) NOT NULL,
-                                                 partita_iva VARCHAR(45) NULL DEFAULT NULL,
-                                                 PRIMARY KEY (id),
-                                                 UNIQUE INDEX codice_fiscale_UNIQUE (codice_fiscale ASC) VISIBLE)
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb3;
-
+CREATE TABLE IF NOT EXISTS CLIENTE (
+                                       ID INT NOT NULL AUTO_INCREMENT,
+                                       NOME VARCHAR(45) NOT NULL,
+                                       COGNOME VARCHAR(45) NOT NULL,
+                                       INDIRIZZO VARCHAR(45) NULL DEFAULT NULL,
+                                       CODICE_FISCALE VARCHAR(45) NOT NULL,
+                                       EMAIL VARCHAR(45) NULL DEFAULT NULL,
+                                       TELEFONO VARCHAR(45) NULL DEFAULT NULL,
+                                       NUMERO_CARTA VARCHAR(45) NOT NULL,
+                                       PARTITA_IVA VARCHAR(45) NULL DEFAULT NULL,
+                                       PRIMARY KEY (ID),
+                                       UNIQUE INDEX CODICE_FISCALE_UNIQUE (CODICE_FISCALE ASC) VISIBLE
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb3;
 
 -- -----------------------------------------------------
--- Table magazzino.sottocategoria
+-- Table MAGAZZINO.SOTTOCATEGORIA
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS magazzino.sottocategoria (
-                                                        id INT NOT NULL AUTO_INCREMENT,
-                                                        nome VARCHAR(45) NOT NULL,
-                                                        categoria_id INT NOT NULL,
-                                                        PRIMARY KEY (id),
-                                                        INDEX fk_sottoCategoria_categoria1_idx (categoria_id ASC) VISIBLE,
-                                                        CONSTRAINT fk_sottoCategoria_categoria1
-                                                            FOREIGN KEY (categoria_id)
-                                                                REFERENCES magazzino.categoria (id)
-                                                                ON DELETE CASCADE
-                                                                ON UPDATE CASCADE)
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb3;
-
+CREATE TABLE IF NOT EXISTS SOTTOCATEGORIA (
+                                              ID INT NOT NULL AUTO_INCREMENT,
+                                              NOME VARCHAR(45) NOT NULL,
+                                              CATEGORIA_ID INT NOT NULL,
+                                              PRIMARY KEY (ID),
+                                              INDEX IDX_SOTTOCATEGORIA_CATEGORIA_ID (CATEGORIA_ID ASC),
+                                              CONSTRAINT FK_SOTTOCATEGORIA_CATEGORIA
+                                                  FOREIGN KEY (CATEGORIA_ID)
+                                                      REFERENCES CATEGORIA (ID)
+                                                      ON DELETE CASCADE
+                                                      ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb3;
 
 -- -----------------------------------------------------
--- Table magazzino.unitamisura
+-- Table MAGAZZINO.UNITAMISURA
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS magazzino.unitamisura (
-                                                     id INT NOT NULL AUTO_INCREMENT,
-                                                     descrizione VARCHAR(255) NOT NULL,
-                                                     PRIMARY KEY (id))
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb3;
-
+CREATE TABLE IF NOT EXISTS UNITAMISURA (
+                                           ID INT NOT NULL AUTO_INCREMENT,
+                                           DESCRIZIONE VARCHAR(255) NOT NULL,
+                                           PRIMARY KEY (ID)
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb3;
 
 -- -----------------------------------------------------
--- Table magazzino.prodotto
+-- Table MAGAZZINO.PRODOTTO
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS magazzino.prodotto (
-                                                  id INT NOT NULL AUTO_INCREMENT,
-                                                  nome VARCHAR(45) NOT NULL,
-                                                  prezzo DECIMAL(10,2) NOT NULL,
-                                                  descrizione VARCHAR(255) NOT NULL,
-                                                  quantita DECIMAL(10,2) NOT NULL,
-                                                  disponibilita TINYINT NOT NULL DEFAULT '1',
-                                                  UnitaMisura_id INT NOT NULL,
-                                                  sottoCategoria_id INT NOT NULL,
-                                                  PRIMARY KEY (id),
-                                                  INDEX fk_Prodotto_UnitaMisura_idx (UnitaMisura_id ASC) VISIBLE,
-                                                  INDEX fk_prodotto_sottoCategoria1_idx (sottoCategoria_id ASC) VISIBLE,
-                                                  CONSTRAINT fk_prodotto_sottoCategoria1
-                                                      FOREIGN KEY (sottoCategoria_id)
-                                                          REFERENCES magazzino.sottocategoria (id)
-                                                          ON DELETE CASCADE
-                                                          ON UPDATE CASCADE,
-                                                  CONSTRAINT fk_Prodotto_UnitaMisura
-                                                      FOREIGN KEY (UnitaMisura_id)
-                                                          REFERENCES magazzino.unitamisura (id)
-                                                          ON DELETE CASCADE
-                                                          ON UPDATE CASCADE)
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb3;
-
+CREATE TABLE IF NOT EXISTS PRODOTTO (
+                                        ID INT NOT NULL AUTO_INCREMENT,
+                                        NOME VARCHAR(45) NOT NULL,
+                                        PREZZO DECIMAL(10,2) NOT NULL,
+                                        DESCRIZIONE VARCHAR(255) NOT NULL,
+                                        QUANTITA DECIMAL(10,2) NOT NULL,
+                                        DISPONIBILITA TINYINT NOT NULL DEFAULT '1',
+                                        UNITAMISURA_ID INT NOT NULL,
+                                        SOTTOCATEGORIA_ID INT NOT NULL,
+                                        PRIMARY KEY (ID),
+                                        INDEX IDX_PRODOTTO_UNITAMISURA_ID (UNITAMISURA_ID ASC),
+                                        INDEX IDX_PRODOTTO_SOTTOCATEGORIA_ID (SOTTOCATEGORIA_ID ASC),
+                                        CONSTRAINT FK_PRODOTTO_UNITAMISURA
+                                            FOREIGN KEY (UNITAMISURA_ID)
+                                                REFERENCES UNITAMISURA (ID)
+                                                ON DELETE CASCADE
+                                                ON UPDATE CASCADE,
+                                        CONSTRAINT FK_PRODOTTO_SOTTOCATEGORIA
+                                            FOREIGN KEY (SOTTOCATEGORIA_ID)
+                                                REFERENCES SOTTOCATEGORIA (ID)
+                                                ON DELETE CASCADE
+                                                ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb3;
 
 -- -----------------------------------------------------
--- Table magazzino.ordine
+-- Table MAGAZZINO.ORDINE
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS magazzino.ordine (
-                                                id INT NOT NULL AUTO_INCREMENT,
-                                                quantita INT NOT NULL,
-                                                data_ora TIMESTAMP NOT NULL,
-                                                prezzo_totale DECIMAL(10,2) NOT NULL,
-                                                sospeso TINYINT NOT NULL,
-                                                Cliente_id INT NOT NULL,
-                                                Prodotto_id INT NOT NULL,
-                                                PRIMARY KEY (id),
-                                                INDEX fk_Ordine_Cliente1_idx (Cliente_id ASC) VISIBLE,
-                                                INDEX fk_Ordine_Prodotto1_idx (Prodotto_id ASC) VISIBLE,
-                                                CONSTRAINT fk_Ordine_Cliente1
-                                                    FOREIGN KEY (Cliente_id)
-                                                        REFERENCES magazzino.cliente (id)
-                                                        ON DELETE CASCADE
-                                                        ON UPDATE CASCADE,
-                                                CONSTRAINT fk_Ordine_Prodotto1
-                                                    FOREIGN KEY (Prodotto_id)
-                                                        REFERENCES magazzino.prodotto (id)
-                                                        ON DELETE CASCADE
-                                                        ON UPDATE CASCADE)
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb3;
-
+CREATE TABLE IF NOT EXISTS ORDINE (
+                                      ID INT NOT NULL AUTO_INCREMENT,
+                                      QUANTITA INT NOT NULL,
+                                      DATA_ORA TIMESTAMP NOT NULL,
+                                      PREZZO_TOTALE DECIMAL(10,2) NOT NULL,
+                                      SOSPESO TINYINT NOT NULL,
+                                      CLIENTE_ID INT NOT NULL,
+                                      PRIMARY KEY (ID),
+                                      INDEX IDX_ORDINE_CLIENTE_ID (CLIENTE_ID ASC),
+                                      CONSTRAINT FK_ORDINE_CLIENTE
+                                          FOREIGN KEY (CLIENTE_ID)
+                                              REFERENCES CLIENTE (ID)
+                                              ON DELETE CASCADE
+                                              ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb3;
 
 -- -----------------------------------------------------
--- Table magazzino.movimento
+-- Table MAGAZZINO.ORDINEREFPRODOTTO
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS magazzino.movimento (
-                                                   id INT NOT NULL AUTO_INCREMENT,
-                                                   tipo VARCHAR(45) NOT NULL,
-                                                   data_ora TIMESTAMP NOT NULL,
-                                                   descrizione VARCHAR(45) NOT NULL,
-                                                   ordine_id INT NOT NULL,
-                                                   PRIMARY KEY (id),
-                                                   INDEX fk_movimento_ordine1_idx (ordine_id ASC) VISIBLE,
-                                                   CONSTRAINT fk_movimento_ordine1
-                                                       FOREIGN KEY (ordine_id)
-                                                           REFERENCES magazzino.ordine (id)
-                                                           ON DELETE CASCADE
-                                                           ON UPDATE CASCADE)
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8mb3;
+CREATE TABLE IF NOT EXISTS ORDINEREFPRODOTTO (
+                                                 ORDINE_ID INT NOT NULL,
+                                                 PRODOTTO_ID INT NOT NULL,
+                                                 PRIMARY KEY (ORDINE_ID, PRODOTTO_ID),
+                                                 CONSTRAINT FK_ORDINEREFPRODOTTO_ORDINE
+                                                     FOREIGN KEY (ORDINE_ID)
+                                                         REFERENCES ORDINE (ID)
+                                                         ON DELETE CASCADE
+                                                         ON UPDATE CASCADE,
+                                                 CONSTRAINT FK_ORDINEREFPRODOTTO_PRODOTTO
+                                                     FOREIGN KEY (PRODOTTO_ID)
+                                                         REFERENCES PRODOTTO (ID)
+                                                         ON DELETE CASCADE
+                                                         ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb3;
 
+-- -----------------------------------------------------
+-- Table MAGAZZINO.MOVIMENTO
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS MOVIMENTO (
+                                         ID INT NOT NULL AUTO_INCREMENT,
+                                         TIPO VARCHAR(45) NOT NULL,
+                                         DATA_ORA TIMESTAMP NOT NULL,
+                                         DESCRIZIONE VARCHAR(45) NOT NULL,
+                                         ORDINE_ID INT NOT NULL,
+                                         PRIMARY KEY (ID),
+                                         INDEX IDX_MOVIMENTO_ORDINE_ID (ORDINE_ID ASC),
+                                         CONSTRAINT FK_MOVIMENTO_ORDINE
+                                             FOREIGN KEY (ORDINE_ID)
+                                                 REFERENCES ORDINE (ID)
+                                                 ON DELETE CASCADE
+                                                 ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb3;
 
+-- -----------------------------------------------------
+-- Restore settings
+-- -----------------------------------------------------
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

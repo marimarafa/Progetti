@@ -20,12 +20,12 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
                                         JOIN categoria c ON s.categoria_id = c.id
                                         WHERE s.id = :sottoCategoria_id AND c.id = :categoria_id
                                     """)
-    public List<Prodotto> prodottiPerCategoriaeSottoCategoria( @Param("sottoCategoria_id") int sottoCategoria ,
-                                                               @Param("categoria_id")int categoria);
+    public List<Prodotto> prodottiPerCategoriaeSottoCategoria(  int sottoCategoria ,
+                                                               int categoria);
 
     @Query(nativeQuery = true , value = """
                                         SELECT * FROM prodotto WHERE nome = :nome """)
-    public Prodotto prodottoPerNome(String nome);
+    public Prodotto prodottoPerNome( String nome);
 
 
     @Query(nativeQuery = true , value = """

@@ -18,6 +18,8 @@ public interface BancoService {
     OrdineDTO insertOrdine(OrdineDTO ordineDTO);
     OrdineDTO updateOrdine(OrdineDTO ordineDTO);
     OrdineDTO sospendiOrdine(int ordineId);
+    OrdineDTO deleteOrdine(int ordineId);
+    List<OrdineDTO> selectAllOrdini();
     List<OrdineDTO> ordiniCliente(int clienteId);
     //      METODI MOVIMENTI
     MovimentoDTO insertMovimento(MovimentoDTO movimentoDTO);

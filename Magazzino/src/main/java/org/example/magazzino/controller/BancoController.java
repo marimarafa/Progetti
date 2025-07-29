@@ -69,9 +69,10 @@ public class BancoController {
     public MovimentoDTO movimentoPerId(@PathVariable int id) {
         return bancoService.selectMovimentoById(id);
     }
+
     // ==================== ORDINE ====================
 
-    @PostMapping("/ordine")
+    @PostMapping(path = "/ordine", consumes = "application/json", produces = "application/json")
     public OrdineDTO inserisciOrdine(@RequestBody OrdineDTO ordineDTO) {
         return bancoService.insertOrdine(ordineDTO);
     }
@@ -86,9 +87,14 @@ public class BancoController {
         return bancoService.sospendiOrdine(id);
     }
 
-    @GetMapping("/ordini")
-    public List<OrdineDTO> tuttiOrdini(int id) {
+    @GetMapping(path= "/ordini/{id}",produces = "application/json")
+    public List<OrdineDTO> tuttiOrdiniCliente(@PathVariable int id) {
         return bancoService.ordiniCliente(id);
+    }
+
+    @GetMapping(path="/ordini",produces = "application/json")
+    public List<OrdineDTO> tuttiOrdini() {
+        return bancoService.selectAllOrdini();
     }
 
 }

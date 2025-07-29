@@ -3,9 +3,6 @@ package org.example.magazzino.utility;
 import org.example.magazzino.dto.*;
 import org.example.magazzino.entity.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class Conversioni {
 
@@ -27,6 +24,7 @@ public class Conversioni {
     public static Cliente daClienteDTOAClienteID(ClienteDTO dto) {
         return new Cliente(dto.getId());
     }
+
     public static ClienteDTO daClienteAClienteDTOID(Cliente cliente) {
         return new ClienteDTO(cliente.getId());
     }
@@ -85,6 +83,7 @@ public class Conversioni {
     public static CategoriaDTO daCategoriaACategoriaDTOID(Categoria categoria) {
         return new CategoriaDTO(categoria.getId());
     }
+
     public static Categoria daCategoriaDTOACategoriaID(CategoriaDTO dto) {
         return new Categoria(dto.getId());
     }
@@ -113,8 +112,9 @@ public class Conversioni {
     }
 
     public static SottoCategoriaDTO daSottoCategoriaASottoCategoriaDTO(SottoCategoria sc) {
-        return new SottoCategoriaDTO(sc.getId(), sc.getNome(),daCategoriaACategoriaDTOID(sc.getCategoria_id()));
+        return new SottoCategoriaDTO(sc.getId(), sc.getNome(), daCategoriaACategoriaDTOID(sc.getCategoria_id()));
     }
+
     public static SottoCategoriaDTO daSottoCategoriaASottoCategoriaDTOID(SottoCategoria sc) {
         return new SottoCategoriaDTO(sc.getId());
     }
@@ -125,43 +125,50 @@ public class Conversioni {
 
     // -------------------- Conversione ORDINE --------------------
     public static Ordine daOrdineDTOAOrdine(OrdineDTO dto) {
-        List<Prodotto> prodotti = new ArrayList<>();
-        for (ProdottoDTO prodottoDTO : dto.getProdotto_id()) {
-            prodotti.add(daProdottoDTOAProdotto(prodottoDTO));
-        }
         return new Ordine(dto.getId()
-                ,dto.getQuantita(),
+                , dto.getQuantita(),
                 dto.getData_ora(),
                 dto.getPrezzo_totale(),
                 dto.isSospeso(),
-                daClienteDTOAClienteID(dto.getCliente_id())
-                ,prodotti);
+                daClienteDTOAClienteID(dto.getClienteId()));
+    }
+
+    private static Prodotto daProdottoDTOAProdottoID(ProdottoDTO prodottoDTO) {
+        return new Prodotto(prodottoDTO.getId());
     }
 
     public static OrdineDTO daOrdineAOrdineDTO(Ordine ordine) {
-        List<ProdottoDTO> prodottiDTO = new ArrayList<>();
-        for (Prodotto prodotto : ordine.getProdotto_id()) {
-            prodottiDTO.add(daProdottoAProdottoDTO(prodotto));
-        }
         return new OrdineDTO(
-                ordine.getId()
-                ,ordine.getQuantita(),
+                ordine.getId(),
+                ordine.getQuantita(),
                 ordine.getData_ora(),
                 ordine.getPrezzo_totale(),
                 ordine.isSospeso(),
-                daClienteAClienteDTOID(ordine.getCliente_id())
-                ,prodottiDTO
+                daClienteAClienteDTOID(ordine.getClienteId())
         );
     }
 
+    private static ProdottoDTO daProdottoAProdottoDTOID(Prodotto prodotto) {
+        return new ProdottoDTO(prodotto.getId());
+    }
 
 
     // -------------------- Conversione MOVIMENTO --------------------
     public static Movimento daMovimentoDTOAMovimento(MovimentoDTO dto) {
-        return new Movimento(dto.getDescrizione(), dto.getData_ora(), dto.getTipo(), dto.getId(),dto.getOrdine());
+        return new Movimento(dto.getDescrizione(), dto.getData_ora(), dto.getTipo(), dto.getId(), dto.getOrdine());
     }
 
     public static MovimentoDTO daMovimentoAMovimentoDTO(Movimento movimento) {
-        return new MovimentoDTO(movimento.getTipo(), movimento.getData_ora(), movimento.getDescrizione(),movimento.getId(),movimento.getOrdine());
+        return new MovimentoDTO(movimento.getTipo(), movimento.getData_ora(), movimento.getDescrizione(), movimento.getId(), movimento.getOrdine());
     }
+
+    //-------------------------Conversione OrdineRefProdotto--------------------------
+
+    public static OrdineRefProdottoDTO daOrdineRefProdottoAOrdineRefProdottoDTO(OrdineRefProdotto orp) {
+        return new OrdineRefProdottoDTO(orp.getOrdine().getId(), orp.getProdotto().getId());
+    }
+    public static OrdineRefProdotto daOrdineRefProdottoDTOAOrdineRefProdotto(OrdineRefProdottoDTO orp) {
+        return new OrdineRefProdotto(orp.getOrdine(), orp.getProdotto());
+    }
+
 }

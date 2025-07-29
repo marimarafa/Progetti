@@ -28,6 +28,7 @@ public class ClienteDTO {
     }
 
     public ClienteDTO(int id) {
+        this.id = id;
     }
 
     public int getId() {
