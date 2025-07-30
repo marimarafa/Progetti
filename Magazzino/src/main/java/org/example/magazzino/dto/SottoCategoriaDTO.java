@@ -6,13 +6,13 @@ public class SottoCategoriaDTO {
     private int id;
     private String nome;
 
-    private CategoriaDTO categoria_id ;
+    private CategoriaDTO categoriaId ;
 
 
-    public SottoCategoriaDTO(int id, String nome, CategoriaDTO categoria_id) {
+    public SottoCategoriaDTO(int id, String nome, CategoriaDTO categoriaId) {
         this.id = id;
         this.nome = nome;
-        this.categoria_id = categoria_id;
+        this.categoriaId = categoriaId;
     }
 
     public SottoCategoriaDTO() {
@@ -22,12 +22,12 @@ public class SottoCategoriaDTO {
         this.id = id;
     }
 
-    public CategoriaDTO getCategoria_id() {
-        return categoria_id;
+    public CategoriaDTO getCategoriaId() {
+        return categoriaId;
     }
 
-    public void setCategoria_id(CategoriaDTO categoria_id) {
-        this.categoria_id = categoria_id;
+    public void setCategoriaId(CategoriaDTO categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
     public int getId() {

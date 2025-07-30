@@ -1,7 +1,6 @@
 package org.example.magazzino.dao;
 
 
-import org.example.magazzino.entity.Categoria;
 import org.example.magazzino.entity.Cliente;
 import org.example.magazzino.exception.EntityAlreadyExistsException;
 import org.example.magazzino.repository.ClienteRepository;
@@ -19,8 +18,8 @@ public class ClienteDAO {
     ClienteRepository repo;
 
     public Cliente insert(Cliente cliente) {
-        if (existsByCodiceFiscale(cliente.getCodice_fiscale())) {
-            throw new EntityAlreadyExistsException("Cliente con codice fiscale " + cliente.getCodice_fiscale() + " già esistente");
+        if (existsByCodiceFiscale(cliente.getCodiceFiscale())) {
+            throw new EntityAlreadyExistsException("Cliente con codice fiscale " + cliente.getCodiceFiscale() + " già esistente");
         }
         return repo.save(cliente);
     }

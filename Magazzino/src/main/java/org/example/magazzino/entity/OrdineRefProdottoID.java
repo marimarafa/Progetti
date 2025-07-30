@@ -1,7 +1,9 @@
 package org.example.magazzino.entity;
 
-import java.io.Serializable;
+import jakarta.persistence.Embeddable;
 
+import java.io.Serializable;
+@Embeddable
 public class OrdineRefProdottoID implements Serializable {
     private int ordine;
     private int prodotto;
@@ -9,6 +11,10 @@ public class OrdineRefProdottoID implements Serializable {
     public OrdineRefProdottoID(int ordine, int prodotto) {
         this.ordine = ordine;
         this.prodotto = prodotto;
+    }
+
+    public OrdineRefProdottoID() {
+
     }
 
     public int getOrdine() {

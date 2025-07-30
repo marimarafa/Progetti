@@ -1,26 +1,27 @@
 package org.example.magazzino.service;
 
-import org.example.magazzino.dto.ClienteDTO;
-import org.example.magazzino.dto.MovimentoDTO;
-import org.example.magazzino.dto.OrdineDTO;
+import org.example.magazzino.dto.*;
+import org.example.magazzino.entity.OrdineRefProdotto;
 
 import java.util.List;
 
 
 public interface BancoService {
     //      METODI CLIENTE
-    public ClienteDTO insertCliente(ClienteDTO cliente);
-    public ClienteDTO updateCliente(ClienteDTO cliente);
-    public ClienteDTO deleteCliente(int id);
-    public List<ClienteDTO> selectAllClienti();
-    public ClienteDTO selectByIdCliente(int id);
+    ClienteDTO insertCliente(ClienteDTO cliente);
+    ClienteDTO updateCliente(ClienteDTO cliente);
+    ClienteDTO deleteCliente(int id);
+    List<ClienteDTO> selectAllClienti();
+    ClienteDTO selectByIdCliente(int id);
     //      METODI ORDINI
-    OrdineDTO insertOrdine(OrdineDTO ordineDTO);
+    ProdottiOrdineDTO insertOrdine(ProdottiOrdineDTO dto);
     OrdineDTO updateOrdine(OrdineDTO ordineDTO);
     OrdineDTO sospendiOrdine(int ordineId);
     OrdineDTO deleteOrdine(int ordineId);
     List<OrdineDTO> selectAllOrdini();
     List<OrdineDTO> ordiniCliente(int clienteId);
+    //       METODI ORDINEREFPRODOTTO
+    boolean EliminaProdottoInOrdine(int OrdineId, int ProdottoId);
     //      METODI MOVIMENTI
     MovimentoDTO insertMovimento(MovimentoDTO movimentoDTO);
     MovimentoDTO updateMovimento(MovimentoDTO movimentoDTO);

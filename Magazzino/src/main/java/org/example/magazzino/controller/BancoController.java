@@ -1,8 +1,6 @@
 package org.example.magazzino.controller;
 
-import org.example.magazzino.dto.ClienteDTO;
-import org.example.magazzino.dto.MovimentoDTO;
-import org.example.magazzino.dto.OrdineDTO;
+import org.example.magazzino.dto.*;
 import org.example.magazzino.service.BancoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -73,7 +71,7 @@ public class BancoController {
     // ==================== ORDINE ====================
 
     @PostMapping(path = "/ordine", consumes = "application/json", produces = "application/json")
-    public OrdineDTO inserisciOrdine(@RequestBody OrdineDTO ordineDTO) {
+    public ProdottiOrdineDTO inserisciOrdine(@RequestBody ProdottiOrdineDTO ordineDTO) {
         return bancoService.insertOrdine(ordineDTO);
     }
 
@@ -95,6 +93,13 @@ public class BancoController {
     @GetMapping(path="/ordini",produces = "application/json")
     public List<OrdineDTO> tuttiOrdini() {
         return bancoService.selectAllOrdini();
+    }
+
+    // ==================== ORDINEREFPRODOTTO ====================
+
+    @DeleteMapping("/ordine-ref-prodotto/{ordineid}/{prodottoid}")
+    public boolean EliminaProdottoInOrdine(@PathVariable int ordineid, @PathVariable int prodottoid) {
+        return bancoService.EliminaProdottoInOrdine(ordineid,prodottoid);
     }
 
 }

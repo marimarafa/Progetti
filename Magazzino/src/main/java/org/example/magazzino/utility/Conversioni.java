@@ -3,6 +3,9 @@ package org.example.magazzino.utility;
 import org.example.magazzino.dto.*;
 import org.example.magazzino.entity.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Conversioni {
 
@@ -13,11 +16,11 @@ public class Conversioni {
                 dto.getNome(),
                 dto.getCognome(),
                 dto.getIndirizzo(),
-                dto.getCodice_fiscale(),
+                dto.getCodiceFiscale(),
                 dto.getEmail(),
                 dto.getTelefono(),
-                dto.getNumero_carta(),
-                dto.getPartita_iva()
+                dto.getNumeroCarta(),
+                dto.getPartitaIva()
         );
     }
 
@@ -36,11 +39,11 @@ public class Conversioni {
                 cliente.getNome(),
                 cliente.getCognome(),
                 cliente.getIndirizzo(),
-                cliente.getCodice_fiscale(),
+                cliente.getCodiceFiscale(),
                 cliente.getEmail(),
                 cliente.getTelefono(),
-                cliente.getNumero_carta(),
-                cliente.getPartita_iva()
+                cliente.getNumeroCarta(),
+                cliente.getPartitaIva()
         );
     }
 
@@ -108,11 +111,11 @@ public class Conversioni {
 
     // -------------------- Conversione SOTTOCATEGORIA --------------------
     public static SottoCategoria daSottoCategoriaDTOASottoCategoria(SottoCategoriaDTO dto) {
-        return new SottoCategoria(dto.getId(), dto.getNome(), daCategoriaDTOACategoriaID(dto.getCategoria_id()));
+        return new SottoCategoria(dto.getId(), dto.getNome(), daCategoriaDTOACategoriaID(dto.getCategoriaId()));
     }
 
     public static SottoCategoriaDTO daSottoCategoriaASottoCategoriaDTO(SottoCategoria sc) {
-        return new SottoCategoriaDTO(sc.getId(), sc.getNome(), daCategoriaACategoriaDTOID(sc.getCategoria_id()));
+        return new SottoCategoriaDTO(sc.getId(), sc.getNome(), daCategoriaACategoriaDTOID(sc.getCategoriaId()));
     }
 
     public static SottoCategoriaDTO daSottoCategoriaASottoCategoriaDTOID(SottoCategoria sc) {
@@ -127,8 +130,8 @@ public class Conversioni {
     public static Ordine daOrdineDTOAOrdine(OrdineDTO dto) {
         return new Ordine(dto.getId()
                 , dto.getQuantita(),
-                dto.getData_ora(),
-                dto.getPrezzo_totale(),
+                dto.getDataOra(),
+                dto.getPrezzoTotale(),
                 dto.isSospeso(),
                 daClienteDTOAClienteID(dto.getClienteId()));
     }
@@ -141,8 +144,8 @@ public class Conversioni {
         return new OrdineDTO(
                 ordine.getId(),
                 ordine.getQuantita(),
-                ordine.getData_ora(),
-                ordine.getPrezzo_totale(),
+                ordine.getDataOra(),
+                ordine.getPrezzoTotale(),
                 ordine.isSospeso(),
                 daClienteAClienteDTOID(ordine.getClienteId())
         );
@@ -152,14 +155,26 @@ public class Conversioni {
         return new ProdottoDTO(prodotto.getId());
     }
 
+    public static Ordine daOrdineDTOAOrdineID(OrdineDTO dto) {
+        return new Ordine(dto.getId());
+    }
+
+    public static OrdineDTO daOrdineAOrdineDTOID(Ordine ordine) {
+        return new OrdineDTO(ordine.getId());
+    }
+
+
 
     // -------------------- Conversione MOVIMENTO --------------------
+
     public static Movimento daMovimentoDTOAMovimento(MovimentoDTO dto) {
-        return new Movimento(dto.getDescrizione(), dto.getData_ora(), dto.getTipo(), dto.getId(), dto.getOrdine());
+        return new Movimento(dto.getDescrizione(), dto.getDataOra(), dto.getTipo(), dto.getId(),
+                daOrdineDTOAOrdineID(dto.getOrdine()));
     }
 
     public static MovimentoDTO daMovimentoAMovimentoDTO(Movimento movimento) {
-        return new MovimentoDTO(movimento.getTipo(), movimento.getData_ora(), movimento.getDescrizione(), movimento.getId(), movimento.getOrdine());
+        return new MovimentoDTO(movimento.getTipo(), movimento.getDataOra(), movimento.getDescrizione(), movimento.getId(),
+                daOrdineAOrdineDTOID(movimento.getOrdine()));
     }
 
     //-------------------------Conversione OrdineRefProdotto--------------------------
@@ -167,8 +182,10 @@ public class Conversioni {
     public static OrdineRefProdottoDTO daOrdineRefProdottoAOrdineRefProdottoDTO(OrdineRefProdotto orp) {
         return new OrdineRefProdottoDTO(orp.getOrdine().getId(), orp.getProdotto().getId());
     }
-    public static OrdineRefProdotto daOrdineRefProdottoDTOAOrdineRefProdotto(OrdineRefProdottoDTO orp) {
-        return new OrdineRefProdotto(orp.getOrdine(), orp.getProdotto());
+    public static OrdineRefProdotto daOrdineRefProdottoDTOAOrdineRefProdotto(Ordine ordine,Prodotto prodotto) {
+        return new OrdineRefProdotto(ordine,prodotto);
     }
+
+
 
 }

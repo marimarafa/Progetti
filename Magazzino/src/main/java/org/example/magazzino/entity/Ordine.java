@@ -3,7 +3,6 @@ package org.example.magazzino.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity(name = "ordine")
 public class Ordine {
@@ -13,9 +12,9 @@ public class Ordine {
     @Column(name = "QUANTITA")
     private int quantita;
     @Column(name = "DATA_ORA")
-    private LocalDateTime data_ora;
+    private LocalDateTime dataOra;
     @Column(name = "PREZZO_TOTALE")
-    private double prezzo_totale;
+    private double prezzoTotale;
     @Column(name = "SOSPESO")
     private boolean sospeso;
 
@@ -29,17 +28,21 @@ public class Ordine {
 
 
 
-    public Ordine(int id, int quantita, LocalDateTime data_ora, double prezzo_totale,boolean sospeso,Cliente clienteId) {
+    public Ordine(int id, int quantita, LocalDateTime dataOra, double prezzoTotale,boolean sospeso,Cliente clienteId) {
         this.id = id;
         this.sospeso = sospeso;
-        this.data_ora = data_ora;
+        this.dataOra = dataOra;
         this.quantita = quantita;
-        this.prezzo_totale = prezzo_totale;
+        this.prezzoTotale = prezzoTotale;
         this.clienteId = clienteId;
 
     }
 
     public Ordine() {
+    }
+
+    public Ordine(int id) {
+        this.id = id;
     }
 
     public Cliente getClienteId() {
@@ -50,12 +53,12 @@ public class Ordine {
         this.clienteId = clienteId;
     }
 
-    public double getPrezzo_totale() {
-        return prezzo_totale;
+    public double getPrezzoTotale() {
+        return prezzoTotale;
     }
 
-    public void setPrezzo_totale(double prezzo_totale) {
-        this.prezzo_totale = prezzo_totale;
+    public void setPrezzoTotale(double prezzoTotale) {
+        this.prezzoTotale = prezzoTotale;
     }
 
     public int getId() {
@@ -74,12 +77,12 @@ public class Ordine {
         this.sospeso = sospeso;
     }
 
-    public LocalDateTime getData_ora() {
-        return data_ora;
+    public LocalDateTime getDataOra() {
+        return dataOra;
     }
 
-    public void setData_ora(LocalDateTime data_ora) {
-        this.data_ora = data_ora;
+    public void setDataOra(LocalDateTime dataOra) {
+        this.dataOra = dataOra;
     }
 
     public int getQuantita() {

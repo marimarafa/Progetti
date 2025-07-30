@@ -12,13 +12,13 @@ public class SottoCategoria {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "CATEGORIA_ID",referencedColumnName = "ID")
-    private Categoria categoria_id ;
+    private Categoria categoriaId ;
 
 
-    public SottoCategoria(int id, String nome,Categoria categoria_id) {
+    public SottoCategoria(int id, String nome,Categoria categoriaId) {
         this.id = id;
         this.nome = nome;
-        this.categoria_id = categoria_id;
+        this.categoriaId = categoriaId;
     }
 
     public SottoCategoria() {
@@ -28,12 +28,12 @@ public class SottoCategoria {
         this.id = id;
     }
 
-    public Categoria getCategoria_id() {
-        return categoria_id;
+    public Categoria getCategoriaId() {
+        return categoriaId;
     }
 
-    public void setCategoria_id(Categoria categoria_id) {
-        this.categoria_id = categoria_id;
+    public void setCategoriaId(Categoria categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
     public int getId() {

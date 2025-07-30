@@ -6,21 +6,21 @@ public class ClienteDTO {
     private String cognome;
     private String indirizzo;
     private String email;
-    private String codice_fiscale;
+    private String codiceFiscale;
     private String telefono;
-    private String numero_carta;
-    private String partita_iva;
+    private String numeroCarta;
+    private String partitaIva;
 
-    public ClienteDTO(int id, String nome, String cognome,String indirizzo,String codice_fiscale,String email,String telefono,String numero_carta,String partita_iva) {
+    public ClienteDTO(int id, String nome, String cognome,String indirizzo,String codiceFiscale,String email,String telefono,String numeroCarta,String partitaIva) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.indirizzo = indirizzo;
-        this.codice_fiscale = codice_fiscale;
+        this.codiceFiscale = codiceFiscale;
         this.email = email;
         this.telefono = telefono;
-        this.numero_carta = numero_carta;
-        this.partita_iva = partita_iva;
+        this.numeroCarta = numeroCarta;
+        this.partitaIva = partitaIva;
 
     }
 
@@ -71,12 +71,12 @@ public class ClienteDTO {
         this.email = email;
     }
 
-    public String getCodice_fiscale() {
-        return codice_fiscale;
+    public String getCodiceFiscale() {
+        return codiceFiscale;
     }
 
-    public void setCodice_fiscale(String codice_fiscale) {
-        this.codice_fiscale = codice_fiscale;
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
     }
 
     public String getTelefono() {
@@ -87,20 +87,20 @@ public class ClienteDTO {
         this.telefono = telefono;
     }
 
-    public String getNumero_carta() {
-        return numero_carta;
+    public String getNumeroCarta() {
+        return numeroCarta;
     }
 
-    public void setNumero_carta(String numero_carta) {
-        this.numero_carta = numero_carta;
+    public void setNumeroCarta(String numeroCarta) {
+        this.numeroCarta = numeroCarta;
     }
 
-    public String getPartita_iva() {
-        return partita_iva;
+    public String getPartitaIva() {
+        return partitaIva;
     }
 
-    public void setPartita_iva(String partita_iva) {
-        this.partita_iva = partita_iva;
+    public void setPartitaIva(String partitaIva) {
+        this.partitaIva = partitaIva;
     }
 
 

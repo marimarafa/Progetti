@@ -89,4 +89,7 @@ public class ProdottoDAO {
         }
     }
 
+    public boolean existsById(int id) {
+        return repo.existsById(id);
+    }
 }

@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 public class MovimentoDTO {
     private int id;
     private String tipo;
-    private LocalDateTime data_ora;
+    private LocalDateTime dataOra;
     private String descrizione;
 
-    private Ordine ordine;
+    private OrdineDTO ordine;
 
-    public MovimentoDTO(String descrizione, LocalDateTime data_ora, String tipo, int id,Ordine ordine) {
+    public MovimentoDTO(String descrizione, LocalDateTime dataOra, String tipo, int id,OrdineDTO ordine) {
         this.descrizione = descrizione;
-        this.data_ora = data_ora;
+        this.dataOra = dataOra;
         this.tipo = tipo;
         this.id = id;
         this.ordine = ordine;
@@ -23,11 +23,15 @@ public class MovimentoDTO {
     public MovimentoDTO() {
     }
 
-    public Ordine getOrdine() {
+    public MovimentoDTO(int id) {
+        this.id = id;
+    }
+
+    public OrdineDTO getOrdine() {
         return ordine;
     }
 
-    public void setOrdine(Ordine ordine) {
+    public void setOrdine(OrdineDTO ordine) {
         this.ordine = ordine;
     }
 
@@ -47,12 +51,12 @@ public class MovimentoDTO {
         this.descrizione = descrizione;
     }
 
-    public LocalDateTime getData_ora() {
-        return data_ora;
+    public LocalDateTime getDataOra() {
+        return dataOra;
     }
 
-    public void setData_ora(LocalDateTime data_ora) {
-        this.data_ora = data_ora;
+    public void setDataOra(LocalDateTime dataOra) {
+        this.dataOra = dataOra;
     }
 
     public String getTipo() {

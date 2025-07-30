@@ -12,7 +12,7 @@ public class Movimento {
     @Column(name = "TIPO")
     private String tipo;
     @Column(name = "DATA_ORA")
-    private LocalDateTime data_ora;
+    private LocalDateTime dataOra;
     @Column(name = "DESCRIZIONE")
     private String descrizione;
 
@@ -20,9 +20,9 @@ public class Movimento {
     @JoinColumn(name = "ORDINE_ID",referencedColumnName = "ID")
     private Ordine ordine ;
 
-    public Movimento(String descrizione, LocalDateTime data_ora, String tipo, int id,Ordine ordine) {
+    public Movimento(String descrizione, LocalDateTime dataOra, String tipo, int id,Ordine ordine) {
         this.descrizione = descrizione;
-        this.data_ora = data_ora;
+        this.dataOra = dataOra;
         this.tipo = tipo;
         this.id = id;
         this.ordine = ordine;
@@ -56,12 +56,12 @@ public class Movimento {
         this.descrizione = descrizione;
     }
 
-    public LocalDateTime getData_ora() {
-        return data_ora;
+    public LocalDateTime getDataOra() {
+        return dataOra;
     }
 
-    public void setData_ora(LocalDateTime data_ora) {
-        this.data_ora = data_ora;
+    public void setDataOra(LocalDateTime dataOra) {
+        this.dataOra = dataOra;
     }
 
     public String getTipo() {

@@ -1,13 +1,7 @@
 package org.example.magazzino.service;
 
-import org.example.magazzino.dao.ClienteDAO;
-import org.example.magazzino.dao.MovimentoDAO;
-import org.example.magazzino.dao.OrdineDAO;
-import org.example.magazzino.dao.ProdottoDAO;
-import org.example.magazzino.dto.ClienteDTO;
-import org.example.magazzino.dto.MovimentoDTO;
-import org.example.magazzino.dto.OrdineDTO;
-import org.example.magazzino.dto.ProdottoDTO;
+import org.example.magazzino.dao.*;
+import org.example.magazzino.dto.*;
 import org.example.magazzino.entity.*;
 import org.example.magazzino.utility.Conversioni;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -30,6 +25,8 @@ public class BancoServiceImpl implements BancoService {
     private MovimentoDAO daoMovimento;
     @Autowired
     private ProdottoDAO daoProdotto;
+    @Autowired
+    private OrdineRefProdottoDAO  daoOrdineRefProdotto;
 
     // ---------------- METODI CLIENTE ----------------
 
@@ -76,14 +73,34 @@ public class BancoServiceImpl implements BancoService {
     // ---------------- METODI ORDINE ----------------
 
     @Override
-    public OrdineDTO insertOrdine(OrdineDTO ordineDTO) {
-            Cliente cliente = daoCliente.selectById(ordineDTO.getClienteId().getId());
-            Ordine ordine = Conversioni.daOrdineDTOAOrdine(ordineDTO);
-            ordine.setClienteId(cliente);
+    public ProdottiOrdineDTO insertOrdine(ProdottiOrdineDTO dto) {
+        OrdineDTO ordineDto = dto.getOrdineDTO();
+        Cliente cliente = daoCliente.selectById(ordineDto.getClienteId().getId());
 
-            return Conversioni.daOrdineAOrdineDTO(daoOrdine.insert(ordine));
+        Ordine ordine = new Ordine();
+        ordine.setQuantita(ordineDto.getQuantita());
+        ordine.setDataOra(ordineDto.getDataOra());
+        ordine.setPrezzoTotale(ordineDto.getPrezzoTotale());
+        ordine.setSospeso(ordineDto.isSospeso());
+        ordine.setClienteId(cliente);
 
+        Ordine ordineSalvato = daoOrdine.insert(ordine);
+
+        for (ProdottoDTO prodottoDTO : dto.getProdotti()) {
+            if (!daoProdotto.existsById(prodottoDTO.getId())) {
+                throw new NoSuchElementException("Prodotto con ID " + prodottoDTO.getId() + " non trovato nel database.");
+            }
+            Prodotto prodotto = daoProdotto.selectById(prodottoDTO.getId());
+            OrdineRefProdottoDTO orp = new OrdineRefProdottoDTO();
+            orp.setOrdine(ordineSalvato.getId());
+            orp.setProdotto(prodotto.getId());
+            daoOrdineRefProdotto.insert(Conversioni.daOrdineRefProdottoDTOAOrdineRefProdotto(ordineSalvato,prodotto));
+        }
+
+        OrdineDTO ordineDtoSalvato = Conversioni.daOrdineAOrdineDTO(ordineSalvato);
+        return new ProdottiOrdineDTO(ordineDtoSalvato, dto.getProdotti());
     }
+
 
     @Override
     public OrdineDTO updateOrdine(OrdineDTO ordineDTO) {
@@ -128,19 +145,30 @@ public class BancoServiceImpl implements BancoService {
         return ordiniDto;
     }
 
+    //...................METODI ORDINEREFPRODOTTO..............................
+
+    @Override
+    public boolean EliminaProdottoInOrdine(int ordineId,int prodottoId){
+        return daoOrdineRefProdotto.EliminaProdottoInOrdine(ordineId, prodottoId);
+    }
+
     //......................METODI MOVIMENTO..................................
 
 
     @Override
     public MovimentoDTO insertMovimento(MovimentoDTO dto) {
-        Movimento m = Conversioni.daMovimentoDTOAMovimento(dto);
-        return Conversioni.daMovimentoAMovimentoDTO(daoMovimento.insert(m));
+        Ordine ordine = daoOrdine.selectById(dto.getOrdine().getId());
+        Movimento entity = Conversioni.daMovimentoDTOAMovimento(dto);
+        entity.setOrdine(ordine);
+        return Conversioni.daMovimentoAMovimentoDTO(daoMovimento.insert(entity));
     }
 
     @Override
     public MovimentoDTO updateMovimento(MovimentoDTO dto) {
-        Movimento m = Conversioni.daMovimentoDTOAMovimento(dto);
-        return Conversioni.daMovimentoAMovimentoDTO(daoMovimento.update(m));
+        Ordine ordine = daoOrdine.selectById(dto.getOrdine().getId());
+        Movimento entity = Conversioni.daMovimentoDTOAMovimento(dto);
+        entity.setOrdine(ordine);
+        return Conversioni.daMovimentoAMovimentoDTO(daoMovimento.update(entity));
     }
 
     @Override

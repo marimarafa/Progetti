@@ -1,14 +1,12 @@
 package org.example.magazzino.dto;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class OrdineDTO {
     private int id;
     private int quantita;
-    private LocalDateTime data_ora;
-    private double prezzo_totale;
+    private LocalDateTime dataOra;
+    private double prezzoTotale;
     private boolean sospeso;
 
 
@@ -21,11 +19,11 @@ public class OrdineDTO {
     public OrdineDTO() {
     }
 
-    public OrdineDTO(int id, int quantita, LocalDateTime data_ora, double prezzo_totale, boolean sospeso, ClienteDTO clienteId) {
+    public OrdineDTO(int id, int quantita, LocalDateTime dataOra, double prezzoTotale, boolean sospeso, ClienteDTO clienteId) {
         this.id = id;
         this.quantita = quantita;
-        this.data_ora = data_ora;
-        this.prezzo_totale = prezzo_totale;
+        this.dataOra = dataOra;
+        this.prezzoTotale = prezzoTotale;
         this.sospeso = sospeso;
         this.clienteId = clienteId;
     }
@@ -46,20 +44,20 @@ public class OrdineDTO {
         this.quantita = quantita;
     }
 
-    public LocalDateTime getData_ora() {
-        return data_ora;
+    public LocalDateTime getDataOra() {
+        return dataOra;
     }
 
-    public void setData_ora(LocalDateTime data_ora) {
-        this.data_ora = data_ora;
+    public void setDataOra(LocalDateTime dataOra) {
+        this.dataOra = dataOra;
     }
 
-    public double getPrezzo_totale() {
-        return prezzo_totale;
+    public double getPrezzoTotale() {
+        return prezzoTotale;
     }
 
-    public void setPrezzo_totale(double prezzo_totale) {
-        this.prezzo_totale = prezzo_totale;
+    public void setPrezzoTotale(double prezzoTotale) {
+        this.prezzoTotale = prezzoTotale;
     }
 
     public boolean isSospeso() {

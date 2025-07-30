@@ -17,13 +17,11 @@ public class MovimentoDAO {
     MovimentoRepository repo;
 
     public Movimento insert(Movimento movimento) {
-        Movimento movimento1 = null;
         try {
-            movimento1 = repo.save(movimento);
+             return repo.save(movimento);
         } catch (Exception e) {
-            System.err.println("Errore nell'inserimento del movimento: " + e.getMessage());
+            throw new NoSuchElementException("Movimento non inserito");
         }
-        return movimento1;
     }
 
     public Movimento selectById(int id) {

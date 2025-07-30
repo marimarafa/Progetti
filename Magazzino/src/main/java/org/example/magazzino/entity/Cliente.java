@@ -20,19 +20,19 @@ public class Cliente {
     @Column(name = "TELEFONO")
     private String telefono;
     @Column(name = "NUMERO_CARTA")
-    private String numero_carta;
+    private String numeroCarta;
     @Column(name = "PARTITA_IVA")
-    private String partita_iva;
+    private String partitaIva;
 
 
 
 
-    public Cliente(int id, String nome,String cognome,String indirizzo,String codice_fiscale,String email,String telefono,String numero_carta,String partita_iva) {
+    public Cliente(int id, String nome,String cognome,String indirizzo,String codiceFiscale,String email,String telefono,String numeroCarta,String partitaIva) {
         this.id = id;
-        this.partita_iva = partita_iva;
-        this.numero_carta = numero_carta;
+        this.partitaIva = partitaIva;
+        this.numeroCarta = numeroCarta;
         this.telefono = telefono;
-        this.codiceFiscale = codice_fiscale;
+        this.codiceFiscale = codiceFiscale;
         this.email = email;
         this.indirizzo = indirizzo;
         this.cognome = cognome;
@@ -86,12 +86,12 @@ public class Cliente {
         this.email = email;
     }
 
-    public String getCodice_fiscale() {
+    public String getCodiceFiscale() {
         return codiceFiscale;
     }
 
-    public void setCodice_fiscale(String codice_fiscale) {
-        this.codiceFiscale = codice_fiscale;
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
     }
 
     public String getTelefono() {
@@ -102,19 +102,19 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public String getNumero_carta() {
-        return numero_carta;
+    public String getNumeroCarta() {
+        return numeroCarta;
     }
 
-    public void setNumero_carta(String numero_carta) {
-        this.numero_carta = numero_carta;
+    public void setNumeroCarta(String numeroCarta) {
+        this.numeroCarta = numeroCarta;
     }
 
-    public String getPartita_iva() {
-        return partita_iva;
+    public String getPartitaIva() {
+        return partitaIva;
     }
 
-    public void setPartita_iva(String partita_iva) {
-        this.partita_iva = partita_iva;
+    public void setPartitaIva(String partitaIva) {
+        this.partitaIva = partitaIva;
     }
 }

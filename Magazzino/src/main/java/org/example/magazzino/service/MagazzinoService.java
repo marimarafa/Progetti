@@ -5,43 +5,40 @@ import org.example.magazzino.dto.CategoriaDTO;
 import org.example.magazzino.dto.ProdottoDTO;
 import org.example.magazzino.dto.SottoCategoriaDTO;
 import org.example.magazzino.dto.UnitaMisuraDTO;
-import org.example.magazzino.entity.Prodotto;
 
 import javax.management.InstanceAlreadyExistsException;
 import java.util.List;
 
 public interface MagazzinoService {
     //      METODI PRODOTTO
-    public List<ProdottoDTO> prodottiPerCategoriaeSottoCategoria(int sottoCategoria, int categoria) ;
-    public ProdottoDTO insertProdotto(ProdottoDTO prodotto) throws InstanceAlreadyExistsException;
-    public ProdottoDTO updateProdotto(ProdottoDTO prodotto);
-    public ProdottoDTO deleteProdotto(int id);
-    public List<ProdottoDTO> selectAllProdotti();
-    public ProdottoDTO selectByIdProdotto(int id);
+    List<ProdottoDTO> prodottiPerCategoriaeSottoCategoria(int sottoCategoria, int categoria) ;
+    ProdottoDTO insertProdotto(ProdottoDTO prodotto) throws InstanceAlreadyExistsException;
+    ProdottoDTO updateProdotto(ProdottoDTO prodotto);
+    ProdottoDTO deleteProdotto(int id);
+    List<ProdottoDTO> selectAllProdotti();
+    ProdottoDTO selectByIdProdotto(int id);
+    ProdottoDTO prodottoPerNome(String nome);
+    int quantitaProdotto(String nome);
 
     //        METODI SOTTOCATEGORIA
-    public SottoCategoriaDTO insertSottoCategoria(SottoCategoriaDTO sottoCategoria) throws InstanceAlreadyExistsException;
-    public SottoCategoriaDTO updateSottoCategoria(SottoCategoriaDTO sottoCategoria);
-    public SottoCategoriaDTO deleteSottoCategoria(int id);
-    public List<SottoCategoriaDTO> selectAllSottoCategorie();
-    public SottoCategoriaDTO selectByIdSottoCategoria(int id);
-    public ProdottoDTO prodottoPerNome(String nome);
-    public int quantitaProdotto(String nome);
-
+    SottoCategoriaDTO insertSottoCategoria(SottoCategoriaDTO sottoCategoria) throws InstanceAlreadyExistsException;
+    SottoCategoriaDTO updateSottoCategoria(SottoCategoriaDTO sottoCategoria);
+    SottoCategoriaDTO deleteSottoCategoria(int id);
+    List<SottoCategoriaDTO> selectAllSottoCategorie();
+    SottoCategoriaDTO selectByIdSottoCategoria(int id);
 
     //          METODI CATEGORIA
-    public CategoriaDTO insertCategoria(CategoriaDTO categoria) throws InstanceAlreadyExistsException;
-    public CategoriaDTO updateCategoria(CategoriaDTO categoria);
-    public CategoriaDTO deleteCategoria(int id);
-    public List<CategoriaDTO> selectAllCategorie();
-    public CategoriaDTO selectByIdCategoria(int id);
+    CategoriaDTO insertCategoria(CategoriaDTO categoria) throws InstanceAlreadyExistsException;
+    CategoriaDTO updateCategoria(CategoriaDTO categoria);
+    CategoriaDTO deleteCategoria(int id);List<CategoriaDTO> selectAllCategorie();
+    CategoriaDTO selectByIdCategoria(int id);
 
     //          METODI UNITAMISURA
-    public UnitaMisuraDTO insertUnitaMisura(UnitaMisuraDTO unita) throws InstanceAlreadyExistsException;
-    public UnitaMisuraDTO updateUnitaMisura(UnitaMisuraDTO unita);
-    public UnitaMisuraDTO deleteUnitaMisura(int id);
-    public List<UnitaMisuraDTO> selectAllUnitaMisura();
-    public UnitaMisuraDTO selectByIdUnitaMisura(int id);
+    UnitaMisuraDTO insertUnitaMisura(UnitaMisuraDTO unita) throws InstanceAlreadyExistsException;
+    UnitaMisuraDTO updateUnitaMisura(UnitaMisuraDTO unita);
+    UnitaMisuraDTO deleteUnitaMisura(int id);
+    List<UnitaMisuraDTO> selectAllUnitaMisura();
+    UnitaMisuraDTO selectByIdUnitaMisura(int id);
 
 
 }

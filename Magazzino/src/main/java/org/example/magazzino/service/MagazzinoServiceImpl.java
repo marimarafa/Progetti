@@ -118,17 +118,17 @@ public class MagazzinoServiceImpl implements MagazzinoService{
 
     @Override
     public SottoCategoriaDTO insertSottoCategoria(SottoCategoriaDTO sottoCategoria) throws InstanceAlreadyExistsException {
-        Categoria categoria = dao_Categoria.selectById(sottoCategoria.getCategoria_id().getId());
+        Categoria categoria = dao_Categoria.selectById(sottoCategoria.getCategoriaId().getId());
         SottoCategoria entity = Conversioni.daSottoCategoriaDTOASottoCategoria(sottoCategoria);
-        entity.setCategoria_id(categoria);
+        entity.setCategoriaId(categoria);
         return Conversioni.daSottoCategoriaASottoCategoriaDTO(dao_SottoCategoria.insert(entity));
     }
 
     @Override
     public SottoCategoriaDTO updateSottoCategoria(SottoCategoriaDTO sottoCategoria) {
-        Categoria categoria = dao_Categoria.selectById(sottoCategoria.getCategoria_id().getId());
+        Categoria categoria = dao_Categoria.selectById(sottoCategoria.getCategoriaId().getId());
         SottoCategoria entity = Conversioni.daSottoCategoriaDTOASottoCategoria(sottoCategoria);
-        entity.setCategoria_id(categoria);
+        entity.setCategoriaId(categoria);
         return Conversioni.daSottoCategoriaASottoCategoriaDTO(dao_SottoCategoria.update(entity));
     }
 
