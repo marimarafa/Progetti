@@ -80,9 +80,14 @@ public class BancoController {
         return bancoService.updateOrdine(ordineDTO);
     }
 
-    @DeleteMapping("/ordine/{id}")
+    @DeleteMapping("/ordine/sospendi/{id}")
     public OrdineDTO sospendiOrdine(@PathVariable int id) {
         return bancoService.sospendiOrdine(id);
+    }
+
+    @DeleteMapping("/ordine/{id}")
+    public OrdineDTO eliminaOrdine(@PathVariable int id) {
+        return bancoService.deleteOrdine(id);
     }
 
     @GetMapping(path= "/ordini/{id}",produces = "application/json")
@@ -100,6 +105,16 @@ public class BancoController {
     @DeleteMapping("/ordine-ref-prodotto/{ordineid}/{prodottoid}")
     public boolean EliminaProdottoInOrdine(@PathVariable int ordineid, @PathVariable int prodottoid) {
         return bancoService.EliminaProdottoInOrdine(ordineid,prodottoid);
+    }
+
+    @PostMapping(path = "/ordine-ref-prodotto", consumes = "application/json", produces = "application/json")
+    public OrdineRefProdottoDTO insertOrdineRefProdotto(@RequestBody OrdineRefProdottoDTO orpDTO) {
+        return bancoService.insertOrdineRefProdotto(orpDTO);
+    }
+
+    @GetMapping(path="/ordini-ref-prodotto",produces = "application/json")
+    public List<OrdineRefProdottoDTO> tuttiOrdiniRefProdotto() {
+        return bancoService.selectAllOrdineRefProdotto();
     }
 
 }

@@ -21,6 +21,8 @@ public interface BancoService {
     List<OrdineDTO> selectAllOrdini();
     List<OrdineDTO> ordiniCliente(int clienteId);
     //       METODI ORDINEREFPRODOTTO
+    List<OrdineRefProdottoDTO> selectAllOrdineRefProdotto();
+    OrdineRefProdottoDTO insertOrdineRefProdotto(OrdineRefProdottoDTO orpDTO);
     boolean EliminaProdottoInOrdine(int OrdineId, int ProdottoId);
     //      METODI MOVIMENTI
     MovimentoDTO insertMovimento(MovimentoDTO movimentoDTO);

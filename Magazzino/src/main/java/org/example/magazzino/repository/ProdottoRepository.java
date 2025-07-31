@@ -1,11 +1,8 @@
 package org.example.magazzino.repository;
 
-import org.example.magazzino.entity.Categoria;
 import org.example.magazzino.entity.Prodotto;
-import org.example.magazzino.entity.SottoCategoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,7 +27,7 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
 
     @Query(nativeQuery = true , value = """
                                         SELECT quantita FROM prodotto WHERE nome = :nome """)
-    public int QuantitaProdotto(String nome);
+    public int SetDisponibilta(String nome);
 
 
 

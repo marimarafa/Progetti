@@ -98,7 +98,7 @@ public class MagazzinoServiceImpl implements MagazzinoService{
 
 
     @Override
-    public int quantitaProdotto(String nome) {
+    public int SetDisponibilta(String nome) {
         Prodotto prodotto = dao_Prodotto.prodottoPerNome(nome);
 
         if (prodotto.getQuantita() == 0) {

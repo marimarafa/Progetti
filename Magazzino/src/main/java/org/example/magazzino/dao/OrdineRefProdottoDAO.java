@@ -25,11 +25,6 @@ public class OrdineRefProdottoDAO {
         return orp;
     }
 
-    public OrdineRefProdotto selectById(int id) {
-        return repo.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Associazione ordine-prodotto con id " + id + " non trovata"));
-    }
-
     public List<OrdineRefProdotto> selectAll() {
         return repo.findAll();
     }
@@ -39,12 +34,6 @@ public class OrdineRefProdottoDAO {
             throw new NoSuchElementException("Associazione ordine-prodotto non trovata");
         }
         return repo.save(ref);
-    }
-
-    public OrdineRefProdotto deleteById(int id) {
-        OrdineRefProdotto ref = selectById(id);
-        repo.deleteById(id);
-        return ref;
     }
 
     public boolean EliminaProdottoInOrdine(int ordineId, int prodottoId){

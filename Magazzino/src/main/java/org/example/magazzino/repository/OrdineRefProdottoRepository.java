@@ -1,6 +1,7 @@
 package org.example.magazzino.repository;
 
 import org.example.magazzino.entity.OrdineRefProdotto;
+import org.example.magazzino.entity.OrdineRefProdottoID;
 import org.example.magazzino.entity.Prodotto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,7 +13,13 @@ public interface OrdineRefProdottoRepository extends JpaRepository<OrdineRefProd
 
     @Modifying
     @Query(nativeQuery = true , value = """
-                                        DELETE FROM ordinerefprodotto WHERE ordine_id = :ordineId  and prodotto_id = :prodottoId""")
+                                        DELETE  FROM ordinerefprodotto WHERE ORDINE_ID = :ordineId  and PRODOTTO_ID = :prodottoId""")
     public int EliminaProdottoInOrdine(int  ordineId, int prodottoId);
+
+
+    @Query(nativeQuery = true , value = """
+                                        SELECT * FROM ordinerefprodotto WHERE ordine_id = :ordineId  and prodotto_id = :prodottoId""")
+    public OrdineRefProdotto SelectById(int  ordineId, int prodottoId);
+
 
 }

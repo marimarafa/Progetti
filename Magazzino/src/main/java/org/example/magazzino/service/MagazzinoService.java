@@ -18,7 +18,7 @@ public interface MagazzinoService {
     List<ProdottoDTO> selectAllProdotti();
     ProdottoDTO selectByIdProdotto(int id);
     ProdottoDTO prodottoPerNome(String nome);
-    int quantitaProdotto(String nome);
+    int SetDisponibilta(String nome);
 
     //        METODI SOTTOCATEGORIA
     SottoCategoriaDTO insertSottoCategoria(SottoCategoriaDTO sottoCategoria) throws InstanceAlreadyExistsException;

@@ -36,8 +36,8 @@ public class MagazzinoController {
     }
 
     @GetMapping("/prodotti/quantita")
-    public int getQuantitaProdotto(@RequestParam String nome) {
-        return service.quantitaProdotto(nome);
+    public int SetDisponibilta(@RequestParam String nome) {
+        return service.SetDisponibilta(nome);
     }
 
     @PostMapping(path = "/prodotti", consumes = "application/json", produces = "application/json")

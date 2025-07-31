@@ -2,9 +2,7 @@ package org.example.magazzino.dao;
 
 
 
-import org.example.magazzino.entity.Categoria;
 import org.example.magazzino.entity.Prodotto;
-import org.example.magazzino.entity.SottoCategoria;
 import org.example.magazzino.exception.EntityAlreadyExistsException;
 import org.example.magazzino.repository.ProdottoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,9 +79,9 @@ public class ProdottoDAO {
         }
     }
 
-    public int quantitaProdotto(String nome) {
+    public int SetDisponibilta(String nome) {
         try {
-            return repo.QuantitaProdotto(nome);
+            return repo.SetDisponibilta(nome);
         } catch (Exception e) {
             throw new RuntimeException("Prodotto con nome: " + nome + " non trovato");
         }

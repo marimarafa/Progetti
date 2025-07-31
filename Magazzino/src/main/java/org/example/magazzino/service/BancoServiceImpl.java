@@ -115,7 +115,7 @@ public class BancoServiceImpl implements BancoService {
     @Override
     public OrdineDTO sospendiOrdine(int ordineId) {
         Ordine ordine = daoOrdine.selectById(ordineId);
-        ordine.setSospeso(true);
+        ordine.setSospeso(!ordine.isSospeso());
         return Conversioni.daOrdineAOrdineDTO(daoOrdine.update(ordine));
     }
 
@@ -145,7 +145,30 @@ public class BancoServiceImpl implements BancoService {
         return ordiniDto;
     }
 
+
     //...................METODI ORDINEREFPRODOTTO..............................
+
+
+    @Override
+    public List<OrdineRefProdottoDTO> selectAllOrdineRefProdotto() {
+        List<OrdineRefProdotto> orprodotti  = daoOrdineRefProdotto.selectAll();
+        List<OrdineRefProdottoDTO> orpdto = new ArrayList<>();
+        for (OrdineRefProdotto orp : orprodotti ) {
+            orpdto.add(Conversioni.daOrdineRefProdottoAOrdineRefProdottoDTO(orp));
+        }
+        return orpdto;
+    }
+
+    @Override
+    public OrdineRefProdottoDTO insertOrdineRefProdotto(OrdineRefProdottoDTO orpDTO) {
+        Ordine o = daoOrdine.selectById(orpDTO.getOrdine());
+        Prodotto p = daoProdotto.selectById(orpDTO.getProdotto());
+
+        OrdineRefProdotto entity = Conversioni.daOrdineRefProdottoDTOAOrdineRefProdotto(o,p);
+        entity.setOrdine(o);
+        entity.setProdotto(p);
+        return Conversioni.daOrdineRefProdottoAOrdineRefProdottoDTO(daoOrdineRefProdotto.insert(entity));
+    }
 
     @Override
     public boolean EliminaProdottoInOrdine(int ordineId,int prodottoId){
