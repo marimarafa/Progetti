@@ -78,11 +78,11 @@ public class MagazzinoServiceImpl implements MagazzinoService{
     @Override
     public List<ProdottoDTO> selectAllProdotti() {
         List<Prodotto> prodotti = dao_Prodotto.selectAll();
-        List<ProdottoDTO> prodottidto = new ArrayList<ProdottoDTO>();
+        List<ProdottoDTO> prodottiDTO = new ArrayList<ProdottoDTO>();
         for (Prodotto prodotto : prodotti) {
-            prodottidto.add(Conversioni.daProdottoAProdottoDTO(prodotto));
+            prodottiDTO.add(Conversioni.daProdottoAProdottoDTO(prodotto));
         }
-        return prodottidto;
+        return prodottiDTO;
     }
 
     @Override
@@ -210,11 +210,11 @@ public class MagazzinoServiceImpl implements MagazzinoService{
     @Override
     public List<UnitaMisuraDTO> selectAllUnitaMisura() {
         List<UnitaMisura> unitaMisure = dao_UnitaMisura.selectAll();
-        List<UnitaMisuraDTO> unitaMisuredto = new ArrayList<>();
+        List<UnitaMisuraDTO> unitaMisureDTO = new ArrayList<>();
         for (UnitaMisura u : unitaMisure) {
-            unitaMisuredto.add(Conversioni.daUnitaMisuraAUnitaMisuraDTO(u));
+            unitaMisureDTO.add(Conversioni.daUnitaMisuraAUnitaMisuraDTO(u));
         }
-        return unitaMisuredto;
+        return unitaMisureDTO;
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ProdottiOrdineDTO {
+    
     OrdineDTO ordineDTO;
     List<ProdottoDTO> prodotti;
 

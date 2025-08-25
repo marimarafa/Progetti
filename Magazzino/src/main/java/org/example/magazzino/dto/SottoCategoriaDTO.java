@@ -1,11 +1,17 @@
 package org.example.magazzino.dto;
 
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class SottoCategoriaDTO {
 
     private int id;
+    @NotBlank(message = "Il campo nome non puo essere vuoto")
     private String nome;
-
+    @NotNull(message = "Il campo categoria non puo essere null")
+    @Valid
     private CategoriaDTO categoriaId ;
 
 

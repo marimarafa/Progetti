@@ -1,15 +1,23 @@
 package org.example.magazzino.dto;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDateTime;
 
 public class OrdineDTO {
     private int id;
+    @Positive(message = "Il campo quantita non puo essere vuoto")
+    @Size(min = 1, message = "Il campo quantita non puo essere meno di 1")
     private int quantita;
+    @NotNull(message = "Il campo dataOra non puo essere null")
     private LocalDateTime dataOra;
+    @Positive(message = "Il campo prezzo totale non puo essere vuoto")
+    @Size(min = 0 , message = "Il campo prezzo totale non puo essere meno di 0")
     private double prezzoTotale;
     private boolean sospeso;
-
-
+    @NotNull(message = "Il campo cliente non puo essere null")
+    @Valid
     private ClienteDTO clienteId;
 
     public OrdineDTO(int id) {

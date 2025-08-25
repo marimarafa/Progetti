@@ -57,11 +57,11 @@ public class BancoServiceImpl implements BancoService {
     @Override
     public List<ClienteDTO> selectAllClienti() {
         List<Cliente> clienti = daoCliente.selectAll();
-        List<ClienteDTO> clientidto = new ArrayList<>();
+        List<ClienteDTO> clientiDTO = new ArrayList<>();
         for (Cliente c : clienti) {
-            clientidto.add(Conversioni.daClienteAClienteDTO(c));
+            clientiDTO.add(Conversioni.daClienteAClienteDTO(c));
         }
-        return clientidto;
+        return clientiDTO;
     }
 
     @Override

@@ -1,7 +1,10 @@
 package org.example.magazzino.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class UnitaMisuraDTO {
     private int id;
+    @NotBlank(message = "Il campo descrizione non puo essere vuoto")
     private String descrizione;
 
     public UnitaMisuraDTO() {

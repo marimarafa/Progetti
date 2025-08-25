@@ -1,15 +1,22 @@
 package org.example.magazzino.dto;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.example.magazzino.entity.Ordine;
 
 import java.time.LocalDateTime;
 
 public class MovimentoDTO {
     private int id;
+    @NotBlank(message = "Il campo tipo non puo essere vuoto")
     private String tipo;
+    @NotNull(message = "Il campo dataOra non puo essere null")
     private LocalDateTime dataOra;
+    @NotBlank(message = "Il campo descrizione non puo essere vuoto")
     private String descrizione;
-
+    @NotNull(message = "Il campo ordine non puo essere null")
+    @Valid
     private OrdineDTO ordine;
 
     public MovimentoDTO(String descrizione, LocalDateTime dataOra, String tipo, int id,OrdineDTO ordine) {

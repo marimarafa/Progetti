@@ -1,7 +1,10 @@
 package org.example.magazzino.dto;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class CategoriaDTO {
     private int id;
+    @NotBlank(message = "Il campo nome non puo essere vuoto")
     private String nome;
 
     public CategoriaDTO(int id, String nome) {

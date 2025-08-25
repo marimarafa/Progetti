@@ -1,16 +1,19 @@
 package org.example.magazzino.controller;
 
+import jakarta.validation.Valid;
 import org.example.magazzino.dto.CategoriaDTO;
 import org.example.magazzino.dto.ProdottoDTO;
 import org.example.magazzino.dto.SottoCategoriaDTO;
 import org.example.magazzino.dto.UnitaMisuraDTO;
 import org.example.magazzino.service.MagazzinoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.InstanceAlreadyExistsException;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/magazzino")
 public class MagazzinoController {
@@ -41,12 +44,12 @@ public class MagazzinoController {
     }
 
     @PostMapping(path = "/prodotti", consumes = "application/json", produces = "application/json")
-    public ProdottoDTO insertProdotto(@RequestBody ProdottoDTO prodotto) throws InstanceAlreadyExistsException {
+    public ProdottoDTO insertProdotto(@RequestBody @Valid ProdottoDTO prodotto) throws InstanceAlreadyExistsException {
         return service.insertProdotto(prodotto);
     }
 
     @PutMapping("/prodotti")
-    public ProdottoDTO updateProdotto(@RequestBody ProdottoDTO prodotto) {
+    public ProdottoDTO updateProdotto(@RequestBody @Valid ProdottoDTO prodotto) {
         return service.updateProdotto(prodotto);
     }
 
@@ -76,12 +79,12 @@ public class MagazzinoController {
     }
 
     @PostMapping("/sottocategorie")
-    public SottoCategoriaDTO insertSottoCategoria(@RequestBody SottoCategoriaDTO sottoCategoria) throws InstanceAlreadyExistsException {
+    public SottoCategoriaDTO insertSottoCategoria(@RequestBody @Valid SottoCategoriaDTO sottoCategoria) throws InstanceAlreadyExistsException {
         return service.insertSottoCategoria(sottoCategoria);
     }
 
     @PutMapping("/sottocategorie")
-    public SottoCategoriaDTO updateSottoCategoria(@RequestBody SottoCategoriaDTO sottoCategoria) {
+    public SottoCategoriaDTO updateSottoCategoria(@RequestBody @Valid SottoCategoriaDTO sottoCategoria) {
         return service.updateSottoCategoria(sottoCategoria);
     }
 
@@ -103,12 +106,12 @@ public class MagazzinoController {
     }
 
     @PostMapping("/categorie")
-    public CategoriaDTO insertCategoria(@RequestBody CategoriaDTO categoria) throws InstanceAlreadyExistsException {
+    public CategoriaDTO insertCategoria(@RequestBody @Valid CategoriaDTO categoria) throws InstanceAlreadyExistsException {
         return service.insertCategoria(categoria);
     }
 
     @PutMapping("/categorie")
-    public CategoriaDTO updateCategoria(@RequestBody CategoriaDTO categoria) {
+    public CategoriaDTO updateCategoria(@RequestBody @Valid CategoriaDTO categoria) {
         return service.updateCategoria(categoria);
     }
 
@@ -130,12 +133,12 @@ public class MagazzinoController {
     }
 
     @PostMapping("/unita-misura")
-    public UnitaMisuraDTO insertUnitaMisura(@RequestBody UnitaMisuraDTO unita) throws InstanceAlreadyExistsException {
+    public UnitaMisuraDTO insertUnitaMisura(@RequestBody @Valid UnitaMisuraDTO unita) throws InstanceAlreadyExistsException {
         return service.insertUnitaMisura(unita);
     }
 
     @PutMapping("/unita-misura")
-    public UnitaMisuraDTO updateUnitaMisura(@RequestBody UnitaMisuraDTO unita) {
+    public UnitaMisuraDTO updateUnitaMisura(@RequestBody @Valid UnitaMisuraDTO unita) {
         return service.updateUnitaMisura(unita);
     }
 

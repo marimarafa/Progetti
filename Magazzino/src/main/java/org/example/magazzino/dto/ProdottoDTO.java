@@ -1,17 +1,29 @@
 package org.example.magazzino.dto;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.example.magazzino.entity.SottoCategoria;
 import org.example.magazzino.entity.UnitaMisura;
 
 public class ProdottoDTO {
     private int id;
+    @NotBlank(message = "Il campo nome non puo essere vuoto")
     private String nome;
+    @Positive(message = "Il campo prezzo non puo essere vuoto")
     private double prezzo;
+    @NotBlank(message = "Il campo descrizione non puo essere vuoto")
     private String descrizione;
+    @Positive(message = "Il campo quantita non puo essere vuoto")
     private int quantita;
     private boolean disponibilita;
-
+    @NotNull(message = "Il campo unita misura non puo essere null")
+    @Valid
     private UnitaMisuraDTO unitaMisura_id ;
+    @NotNull(message = "Il campo sotto categoria non puo essere null")
+    @Valid
     private SottoCategoriaDTO sottoCategoria_id ;
 
     public ProdottoDTO(int id, String nome, double prezzo, String descrizione,int quantita,boolean disponibilita, UnitaMisuraDTO unitaMisura_id, SottoCategoriaDTO sottoCategoria_id) {

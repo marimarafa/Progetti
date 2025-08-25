@@ -1,12 +1,15 @@
 package org.example.magazzino.controller;
 
+import jakarta.validation.Valid;
 import org.example.magazzino.dto.*;
 import org.example.magazzino.service.BancoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/banco")
 public class BancoController {
@@ -17,12 +20,12 @@ public class BancoController {
     // ==================== CLIENTE ====================
 
     @PostMapping("/cliente")
-    public ClienteDTO inserisciCliente(@RequestBody ClienteDTO clienteDTO) {
+    public ClienteDTO inserisciCliente(@RequestBody @Valid ClienteDTO clienteDTO) {
         return bancoService.insertCliente(clienteDTO);
     }
 
     @PutMapping("/cliente")
-    public ClienteDTO aggiornaCliente(@RequestBody ClienteDTO clienteDTO) {
+    public ClienteDTO aggiornaCliente(@RequestBody @Valid ClienteDTO clienteDTO) {
         return bancoService.updateCliente(clienteDTO);
     }
 
@@ -44,12 +47,12 @@ public class BancoController {
     // ==================== MOVIMENTO ====================
 
     @PostMapping("/movimento")
-    public MovimentoDTO inserisciMovimento(@RequestBody MovimentoDTO movimentoDTO) {
+    public MovimentoDTO inserisciMovimento(@RequestBody @Valid MovimentoDTO movimentoDTO) {
         return bancoService.insertMovimento(movimentoDTO);
     }
 
     @PutMapping("/movimento")
-    public MovimentoDTO aggiornaMovimento(@RequestBody MovimentoDTO movimentoDTO) {
+    public MovimentoDTO aggiornaMovimento(@RequestBody @Valid MovimentoDTO movimentoDTO) {
         return bancoService.updateMovimento(movimentoDTO);
     }
 
@@ -71,12 +74,12 @@ public class BancoController {
     // ==================== ORDINE ====================
 
     @PostMapping(path = "/ordine", consumes = "application/json", produces = "application/json")
-    public ProdottiOrdineDTO inserisciOrdine(@RequestBody ProdottiOrdineDTO ordineDTO) {
+    public ProdottiOrdineDTO inserisciOrdine(@RequestBody @Valid ProdottiOrdineDTO ordineDTO) {
         return bancoService.insertOrdine(ordineDTO);
     }
 
     @PutMapping("/ordine")
-    public OrdineDTO aggiornaOrdine(@RequestBody OrdineDTO ordineDTO) {
+    public OrdineDTO aggiornaOrdine(@RequestBody @Valid OrdineDTO ordineDTO) {
         return bancoService.updateOrdine(ordineDTO);
     }
 
@@ -108,7 +111,7 @@ public class BancoController {
     }
 
     @PostMapping(path = "/ordine-ref-prodotto", consumes = "application/json", produces = "application/json")
-    public OrdineRefProdottoDTO insertOrdineRefProdotto(@RequestBody OrdineRefProdottoDTO orpDTO) {
+    public OrdineRefProdottoDTO insertOrdineRefProdotto(@RequestBody @Valid OrdineRefProdottoDTO orpDTO) {
         return bancoService.insertOrdineRefProdotto(orpDTO);
     }
 

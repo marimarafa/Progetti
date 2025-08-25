@@ -1,13 +1,28 @@
 package org.example.magazzino.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+
 public class ClienteDTO {
     private int id;
+    @Pattern(regexp = "^[A-Z][a-z]+" , message = "Inserire un nome valido")
+    @NotBlank(message = "Il campo nome non puo essere vuoto")
     private String nome;
+    @Pattern(regexp = "^[A-Z][a-z]+" , message = "Inserire un cognome valido")
+    @NotBlank(message = "Il campo cognome non puo essere vuoto")
     private String cognome;
     private String indirizzo;
+    @Email(message = "Inserire un email valido")
     private String email;
+    @NotBlank(message = "Il campo codiceFiscale non puo essere null")
+    @Pattern(regexp = "^[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+(?:\\.[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?\\.)+[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?$" ,
+            message = "Inserire un codice fiscale valido")
     private String codiceFiscale;
+    @Pattern(regexp = "^([+-]?(?=\\\\.\\\\d|\\\\d)(?:\\\\d+)?(?:\\\\.?\\\\d*))(?:[Ee]([+-]?\\\\d+))?\\\\s[0-9]+$", message = "Inserire un numero di telefono valido")
     private String telefono;
+    @NotBlank(message = "Il campo numeroCarta non puo essere null")
     private String numeroCarta;
     private String partitaIva;
 
