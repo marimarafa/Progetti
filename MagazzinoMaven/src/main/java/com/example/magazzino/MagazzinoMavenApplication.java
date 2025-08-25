@@ -1,4 +1,4 @@
-package com.example.magazzinomaven;
+package com.example.magazzino;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
